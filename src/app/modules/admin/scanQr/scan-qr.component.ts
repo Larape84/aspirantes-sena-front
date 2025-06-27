@@ -173,6 +173,9 @@ export class ScanQrComponent implements AfterViewInit, OnDestroy {
 
   onScanSuccess(result: string) {
 
+    if(String(this.user.id) === String(result)){
+        return
+    }
 
     this.scanner.pause()
 
@@ -216,7 +219,7 @@ export class ScanQrComponent implements AfterViewInit, OnDestroy {
                             cancelButton: 'rounded-full w-26 bg-gray-500 ring-0',
                             confirmButton: 'rounded-full w-26 ring-0'
                           }}).then((result: any) => {
-                            this.startScanner()
+                            this.switchCamera(this.selectedCameraId)
 
                           })
                     }, 200);
@@ -271,7 +274,7 @@ export class ScanQrComponent implements AfterViewInit, OnDestroy {
                                     next:(resp)=>{
                                         setTimeout(() => {
                                             this.sweetAlertService.alertSuccessWithConfirm().then(()=>{
-                                                this.startScanner()
+                                                this.switchCamera(this.selectedCameraId)
                                             })
                                         }, 200);
                                     }
@@ -280,7 +283,7 @@ export class ScanQrComponent implements AfterViewInit, OnDestroy {
 
 
                             }else{
-                                this.startScanner()
+                                this.switchCamera(this.selectedCameraId)
                             }
 
                           })
@@ -324,7 +327,7 @@ export class ScanQrComponent implements AfterViewInit, OnDestroy {
                 cancelButton: 'rounded-full w-26 bg-gray-500 ring-0',
                 confirmButton: 'rounded-full w-26 ring-0'
               }}).then((result: any) => {
-                this.startScanner()
+                this.switchCamera(this.selectedCameraId)
 
               })
         }, 200);

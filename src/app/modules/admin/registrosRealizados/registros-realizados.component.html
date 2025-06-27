@@ -39,8 +39,16 @@
 
 
 
+                <div class="fuse-mat-dense md:w-72 w-full flex pl-2 items-center rounded-md border border-gray-300">
+                    <mat-date-range-input [max]="max" [rangePicker]="picker">
+                        <input (click)="picker.open()" formControlName="fechaInicio" matStartDate placeholder="Inicio">
+                        <input (click)="picker.open()" formControlName="fechaFinal" matEndDate placeholder="Fin">
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                </div>
 
-                <mat-form-field class="fuse-mat-dense md:w-72 w-full">
+                <!-- <mat-form-field class="fuse-mat-dense md:w-72 w-full">
 
                     <mat-date-range-input [max]="max" [rangePicker]="picker">
                       <input (click)="picker.open()" formControlName="fechaInicio" matStartDate placeholder="Inicio">
@@ -50,7 +58,7 @@
                     <mat-date-range-picker #picker></mat-date-range-picker>
 
 
-                </mat-form-field>
+                </mat-form-field> -->
 
 
                 <button class="icon-size-10 rounded-full"  *ngIf="viewMode === 'XSmall'" (click)="listarregistros()" [disabled]="formfechas.invalid" type="button" mat-raised-button color="primary">

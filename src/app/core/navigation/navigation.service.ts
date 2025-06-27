@@ -1,3 +1,4 @@
+import { compact } from 'lodash-es';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Navigation } from 'app/core/navigation/navigation.types';
@@ -43,10 +44,41 @@ export class NavigationService
     /**
      * Get all navigation data
      */
+
+
+
+    public filtrarCompact(menuData: any, condicion1: boolean, condicion2: boolean, condicion3: boolean): any{
+        const idsPermitidos = new Set<string>();
+
+        if (condicion1) {
+            idsPermitidos.add("Usuarios");
+        }
+        if (condicion2) {
+            idsPermitidos.add("ScanCodigo");
+        }
+        if (condicion3) {
+            idsPermitidos.add("usuarioCreado");
+            idsPermitidos.add("registros");
+        }
+
+        return menuData.compact.filter(item => idsPermitidos.has(item.id));
+    }
+
+
+
     get(): Observable<any>
     {
+
         return this._httpClient.get<Navigation | any>('api/common/navigation').pipe(
             tap((navigation) => {
+                const usuario = this._inicioSesion.obtenerUsuario()
+                const [permisosUsuario ]= usuario.permisos
+                const compact = this.filtrarCompact(navigation,
+                    permisosUsuario.access.usuario,
+                    permisosUsuario.access.gestor,
+                    permisosUsuario.access.admin
+                )
+                navigation.compact = compact
                 this._navigation.next(navigation);
             })
         );

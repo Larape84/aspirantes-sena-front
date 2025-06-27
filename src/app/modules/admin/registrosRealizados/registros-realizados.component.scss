@@ -127,10 +127,17 @@
         max-height: 32rem /* 512px */ !important;
     }
 }
-.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align{
-    height: 0px !important;
-}
 
+.border-gray-300 {
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(203 213 225 / var(--tw-border-opacity)) /* #cbd5e1 */ !important;
+}
+.border {
+    border-width: 1px !important;
+}
+.pl-2 {
+    padding-left: 0.5rem /* 8px */ !important;
+}
 
 @media (min-width: 960px) {
     .md\:w-72 {
