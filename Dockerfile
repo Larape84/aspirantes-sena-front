@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 
 # Instala las dependencias
-RUN npm install
+RUN npm install -f
 
 # Copia el resto del código fuente del proyecto
 COPY . .
