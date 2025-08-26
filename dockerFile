@@ -30,5 +30,5 @@ COPY --from=build /usr/src/app/dist/fuse /usr/share/nginx/html
 # Expone el puerto por defecto de Nginx
 EXPOSE 80
 
-# Comando para iniciar Nginx cuando el contenedor se ejecute
+ 
 CMD ["nginx", "-g", "daemon off;"]
