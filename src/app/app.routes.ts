@@ -9,112 +9,85 @@ import { AuthGuardChildren } from './modules/auth/sign-in/permisos.guard';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-
-
-    // Redirect empty path to '/example'
-    // { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: '' },
-
-    // {path:'', loadChildren:()=>inicioRoutes},
-
-    // Redirect signed-in user to the '/example'
-    //
-    // After the user signs in, the sign-in page will redirect the user to the 'signed-in-redirect'
-    // path. Below is another redirection for that path to redirect the user to the desired
-    // location. This is a small convenience to keep all main routes together here on this file.
-    // {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: ''},
-
-    // Auth routes for guests
     {
         path: 'login',
         // canActivate: [NoAuthGuard],
         // canActivateChild: [NoAuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'empty'
+            layout: 'empty',
         },
         children: [
-            {path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes')},
-            {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes')},
-            {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes')},
-            {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes')},
-            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')},
-            {path: '**', redirectTo: 'sign-in'},
-        ]
+            {
+                path: 'sign-in',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-in/sign-in.routes'),
+            },
+
+            { path: '**', redirectTo: 'sign-in' },
+        ],
     },
-    {path: '', pathMatch:'full', redirectTo: 'login'},
-    // {path: '', pathMatch : 'full', redirectTo: 'sign-in'},
-    // Auth routes for authenticated users
-    // {
-    //     path: '',
-    //     canActivate: [AuthGuard],
-    //     canActivateChild: [AuthGuard],
-    //     component: LayoutComponent,
-    //     data: {
-    //         layout: 'empty'
-    //     },
-    //     children: [
-    //         {path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.routes')},
-    //         {path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.routes')}
-    //     ]
-    // },
+    { path: '', pathMatch: 'full', redirectTo: 'login' },
 
-    // Landing routes
-    // {
-    //     path: '',
-    //     component: LayoutComponent,
-    //     data: {
-    //         layout: 'empty'
-    //     },
-    //     children: [
-    //         {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
-    //     ]
-    // },
+    {
+        path: 'app',
 
-
-    {path: 'app',
-        // canActivate: [AuthGuard],
         component: LayoutComponent,
         resolve: {
-            initialData: initialDataResolver
+            initialData: initialDataResolver,
         },
 
         children: [
-            {path: '', loadChildren: () => import('app/modules/admin/inicio/inicio.routes')},
-            {path: 'usuario', loadChildren: () => import('app/modules/admin/usuario/usuario.routes')},
-        ]
-
+            {
+                path: '',
+                loadChildren: () =>
+                    import('app/modules/admin/inicio/inicio.routes'),
+            },
+            {
+                path: 'usuario',
+                loadChildren: () =>
+                    import('app/modules/admin/usuario/usuario.routes'),
+            },
+        ],
     },
-
 
     // Admin routes
     {
         path: '',
         canActivateChild: [AuthGuard],
-        runGuardsAndResolvers : 'always',
+        runGuardsAndResolvers: 'always',
         component: LayoutComponent,
         resolve: {
-            initialData: initialDataResolver
+            initialData: initialDataResolver,
         },
 
         children: [
-            {path: 'codigoQr', loadChildren: () => import('app/modules/admin/codigoQr/codigoQr.routes')},
-            {path: 'scanQr', loadChildren: () => import('app/modules/admin/scanQr/scanQr.routes')},
-            {path: 'usuarios', loadChildren: () => import('app/modules/admin/panelControl/panel-control.routes')},
-            {path: 'registros', loadChildren: () => import('app/modules/admin/registrosRealizados/registrosRealizados.routes')},
-
-
-        ]
+            {
+                path: 'codigoQr',
+                loadChildren: () =>
+                    import('app/modules/admin/codigoQr/codigoQr.routes'),
+            },
+            {
+                path: 'scanQr',
+                loadChildren: () =>
+                    import('app/modules/admin/scanQr/scanQr.routes'),
+            },
+            {
+                path: 'usuarios',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/panelControl/panel-control.routes'
+                    ),
+            },
+            {
+                path: 'registros',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/registrosRealizados/registrosRealizados.routes'
+                    ),
+            },
+        ],
     },
 
-
-    // {
-    //     "site": "gastrosena-55a47",
-    //     "public": "dist/public",
-    //     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    //     "rewrites": [{ "source": "**", "destination": "/index.html" }]
-    //   },
-
-
-    // {path: '', redirectTo: 'sign-in'},
-    {path: '**', pathMatch : 'full', redirectTo: 'login'},
+    { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];

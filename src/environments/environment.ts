@@ -4,23 +4,19 @@
 
 export const environment = {
     production: false,
-    userName: "APPWEB",
-    password: btoa("123456"),
-    apiUrl: "https://4ca8-2800-b70-1f-21-5465-1564-8ae2-9493.ngrok-free.app/",
-    // apiUrl: "http://154.38.170.172:3001/",
+    userName: 'APPWEB',
+    password: btoa('123456'),
 
     firebase: {
-        apiKey: "AIzaSyDkyPExAdBeFj2sZqDvILFLL6-Im_7lDKU",
-        authDomain: "gastrosena-55a47.firebaseapp.com",
-        projectId: "gastrosena-55a47",
-        storageBucket: "gastrosena-55a47.firebasestorage.app",
-        messagingSenderId: "1070294567195",
-        appId: "1:1070294567195:web:ad8edffa80b6bf1905ebbe",
-        measurementId: "G-PMBY8Z51CX"
-      }
-
-
+        apiKey: 'AIzaSyAYaVfUYjWC70PYaVEq8B6oJIzAEdRRk6Y',
+        authDomain: 'aspirante-sena.firebaseapp.com',
+        projectId: 'aspirante-sena',
+        storageBucket: 'aspirante-sena.firebasestorage.app',
+        messagingSenderId: '144463839739',
+        appId: '1:144463839739:web:9213898234cc278bb60b5e',
+    },
 };
+//  "indexes": "firestore.indexes.json"
 
 /*
  * For easier debugging in development mode, you can import the following file

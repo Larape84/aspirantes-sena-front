@@ -1,20 +1,13 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "hosting": [
-  {
-    "site": "sena-food-gourmet",
-    "public": "dist/public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [{ "source": "**", "destination": "/index.html" }]
-
-  }
-]
-  ,
-  "storage": {
-    "rules": "storage.rules"
-  }
+    "firestore": {
+        "rules": "firestore.rules"
+    },
+    "hosting": [
+        {
+            "site": "aspirante-sena",
+            "public": "dist/fuse",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "rewrites": [{ "source": "**", "destination": "/index.html" }]
+        }
+    ]
 }
-
