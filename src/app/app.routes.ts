@@ -1,9 +1,7 @@
 import { Route } from '@angular/router';
 import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
-import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
-import { AuthGuardChildren } from './modules/auth/sign-in/permisos.guard';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -62,16 +60,6 @@ export const appRoutes: Route[] = [
         },
 
         children: [
-            {
-                path: 'codigoQr',
-                loadChildren: () =>
-                    import('app/modules/admin/codigoQr/codigoQr.routes'),
-            },
-            {
-                path: 'scanQr',
-                loadChildren: () =>
-                    import('app/modules/admin/scanQr/scanQr.routes'),
-            },
             {
                 path: 'usuarios',
                 loadChildren: () =>
