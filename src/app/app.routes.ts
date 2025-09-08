@@ -68,6 +68,12 @@ export const appRoutes: Route[] = [
                     ),
             },
             {
+                path: 'gestion',
+                loadChildren: () =>
+                    import('app/modules/admin/gestion/gestion.routes'),
+            },
+
+            {
                 path: 'registros',
                 loadChildren: () =>
                     import(

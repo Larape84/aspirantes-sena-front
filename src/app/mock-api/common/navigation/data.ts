@@ -16,8 +16,8 @@ export const compactNavigation: FuseNavigationItem[] = [
         id: 'anexarDocumento',
         title: 'Gestion de convocatorias',
         type: 'basic',
-        icon: 'heroicons_outline:camera',
-        link: '/scanQr',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/gestion',
     },
     {
         id: 'usuarioCreado',
