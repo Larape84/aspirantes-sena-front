@@ -1,7 +1,10 @@
-const path = require('path');
-const colors = require('tailwindcss/colors');
-const defaultTheme = require('tailwindcss/defaultTheme');
-const generatePalette = require(path.resolve(__dirname, ('src/@fuse/tailwind/utils/generate-palette')));
+const path = require("path");
+const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
+const generatePalette = require(path.resolve(
+    __dirname,
+    "src/@fuse/tailwind/utils/generate-palette"
+));
 
 /**
  * Custom palettes
@@ -10,7 +13,7 @@ const generatePalette = require(path.resolve(__dirname, ('src/@fuse/tailwind/uti
  * Tailwind-like color palettes automatically
  */
 const customPalettes = {
-    brand: generatePalette('#2196F3')
+    brand: generatePalette("#2196F3"),
 };
 
 /**
@@ -18,380 +21,380 @@ const customPalettes = {
  */
 const themes = {
     // Default theme is required for theming system to work correctly!
-    'default': {
-        primary  : {
+    default: {
+        primary: {
             ...colors.indigo,
-            DEFAULT: colors.indigo[600]
+            DEFAULT: colors.indigo[600],
         },
-        accent   : {
+        accent: {
             ...colors.slate,
-            DEFAULT: colors.slate[800]
+            DEFAULT: colors.slate[800],
         },
-        warn     : {
+        warn: {
             ...colors.red,
-            DEFAULT: colors.red[600]
+            DEFAULT: colors.red[600],
         },
-        'on-warn': {
-            500: colors.red['50']
+        "on-warn": {
+            500: colors.red["50"],
         },
-
     },
     // Rest of the themes will use the 'default' as the base
     // theme and will extend it with their given configuration.
-    'brand' : {
-        primary: customPalettes.brand
+    brand: {
+        primary: customPalettes.brand,
     },
-    'teal'  : {
+    teal: {
         primary: {
             ...colors.teal,
-            DEFAULT: colors.teal[600]
-        }
+            DEFAULT: colors.teal[600],
+        },
     },
-    'rose'  : {
-        primary: colors.rose
+    rose: {
+        primary: colors.rose,
     },
-    'purple': {
+    purple: {
         primary: {
             ...colors.purple,
-            DEFAULT: colors.purple[600]
-        }
+            DEFAULT: colors.purple[600],
+        },
     },
-    'amber' : {
-        primary: colors.amber
+    amber: {
+        primary: colors.amber,
     },
-
 };
 
 /**
  * Tailwind configuration
  */
 
-
-
 /**
  * Tailwind configuration
  */
 // }
 
-
 /**
  * Tailwind configuration
  */
 const config = {
-    darkMode   : 'class',
-    content    : ['./src/**/*.{html,scss,ts}'],
-    important  : true,
-    theme      : {
+    darkMode: "class",
+    content: ["./src/**/*.{html,scss,ts}", "./projects/**/*.{html,ts}"],
+    safelist: [
+        {
+            pattern: /(bg|text|border)-(brand|teal|rose|purple|amber)-\d{1,3}/,
+        },
+    ],
+    important: true,
+    theme: {
         fontSize: {
-            'xs'  : '0.625rem',
-            'sm'  : '0.75rem',
-            'md'  : '0.8125rem',
-            'base': '0.875rem',
-            'lg'  : '1rem',
-            'xl'  : '1.125rem',
-            '2xl' : '1.25rem',
-            '3xl' : '1.5rem',
-            '4xl' : '2rem',
-            '5xl' : '2.25rem',
-            '6xl' : '2.5rem',
-            '7xl' : '3rem',
-            '8xl' : '4rem',
-            '9xl' : '6rem',
-            '10xl': '8rem'
+            xs: "0.625rem",
+            sm: "0.75rem",
+            md: "0.8125rem",
+            base: "0.875rem",
+            lg: "1rem",
+            xl: "1.125rem",
+            "2xl": "1.25rem",
+            "3xl": "1.5rem",
+            "4xl": "2rem",
+            "5xl": "2.25rem",
+            "6xl": "2.5rem",
+            "7xl": "3rem",
+            "8xl": "4rem",
+            "9xl": "6rem",
+            "10xl": "8rem",
         },
-        screens : {
-            sm: '600px',
-            md: '960px',
-            lg: '1280px',
-            xl: '1440px'
+        screens: {
+            sm: "600px",
+            md: "960px",
+            lg: "1280px",
+            xl: "1440px",
         },
-        extend  : {
-            animation               : {
-                'spin-slow': 'spin 3s linear infinite',
-                'infinite-scroll': 'infinite-scroll 25s linear infinite',
+        extend: {
+            animation: {
+                "spin-slow": "spin 3s linear infinite",
+                "infinite-scroll": "infinite-scroll 25s linear infinite",
             },
             keyframes: {
-                'infinite-scroll': {
-                  from: { transform: 'translateX(0)' },
-                  to: { transform: 'translateX(-100%)' },
-                }
+                "infinite-scroll": {
+                    from: { transform: "translateX(0)" },
+                    to: { transform: "translateX(-100%)" },
+                },
             },
-            colors                  : {
-                granAbasto:{amber:'#F1AD1C', green: 'rgb(127 200 93 / 1) ',gray:'#878786'},
+            colors: {
                 gray: colors.slate,
             },
-            flex                    : {
-                '0': '0 0 auto'
+            flex: {
+                0: "0 0 auto",
             },
-            fontFamily              : {
-                sans: `"Inter var", ${defaultTheme.fontFamily.sans.join(',')}`,
-                mono: `"IBM Plex Mono", ${defaultTheme.fontFamily.mono.join(',')}`,
-                customFont: ['Gotham-Light', 'sans-serif'],
-                customFontBlack: ['Gotham-Black', 'sans-serif'],
+            fontFamily: {
+                sans: `"Inter var", ${defaultTheme.fontFamily.sans.join(",")}`,
+                mono: `"IBM Plex Mono", ${defaultTheme.fontFamily.mono.join(
+                    ","
+                )}`,
+                customFont: ["Gotham-Light", "sans-serif"],
+                customFontBlack: ["Gotham-Black", "sans-serif"],
             },
-            opacity                 : {
-                12: '0.12',
-                38: '0.38',
-                87: '0.87'
+            opacity: {
+                12: "0.12",
+                38: "0.38",
+                87: "0.87",
             },
-            rotate                  : {
-                '-270': '270deg',
-                '15'  : '15deg',
-                '30'  : '30deg',
-                '60'  : '60deg',
-                '270' : '270deg'
+            rotate: {
+                "-270": "270deg",
+                15: "15deg",
+                30: "30deg",
+                60: "60deg",
+                270: "270deg",
             },
-            scale                   : {
-                '-1': '-1'
+            scale: {
+                "-1": "-1",
             },
-            zIndex                  : {
-                '-1'   : -1,
-                '49'   : 49,
-                '60'   : 60,
-                '70'   : 70,
-                '80'   : 80,
-                '90'   : 90,
-                '99'   : 99,
-                '999'  : 999,
-                '9999' : 9999,
-                '99999': 99999
+            zIndex: {
+                "-1": -1,
+                49: 49,
+                60: 60,
+                70: 70,
+                80: 80,
+                90: 90,
+                99: 99,
+                999: 999,
+                9999: 9999,
+                99999: 99999,
             },
-            spacing                 : {
-
-                '13': '3.25rem',
-                '15': '3.75rem',
-                '18': '4.5rem',
-                '22': '5.5rem',
-                '26': '6.5rem',
-                '30': '7.5rem',
-                '50': '12.5rem',
-                '90': '22.5rem',
+            spacing: {
+                13: "3.25rem",
+                15: "3.75rem",
+                18: "4.5rem",
+                22: "5.5rem",
+                26: "6.5rem",
+                30: "7.5rem",
+                50: "12.5rem",
+                90: "22.5rem",
 
                 // Bigger values
-                '100': '25rem',
-                '120': '30rem',
-                '128': '32rem',
-                '140': '35rem',
-                '160': '40rem',
-                '180': '45rem',
-                '192': '48rem',
-                '200': '50rem',
-                '240': '60rem',
-                '256': '64rem',
-                '280': '70rem',
-                '320': '80rem',
-                '360': '90rem',
-                '400': '100rem',
-                '480': '120rem',
+                100: "25rem",
+                120: "30rem",
+                128: "32rem",
+                140: "35rem",
+                160: "40rem",
+                180: "45rem",
+                192: "48rem",
+                200: "50rem",
+                240: "60rem",
+                256: "64rem",
+                280: "70rem",
+                320: "80rem",
+                360: "90rem",
+                400: "100rem",
+                480: "120rem",
 
                 // Fractional values
-                '1/2': '50%',
-                '1/3': '33.333333%',
-                '2/3': '66.666667%',
-                '1/4': '25%',
-                '2/4': '50%',
-                '3/4': '75%'
+                "1/2": "50%",
+                "1/3": "33.333333%",
+                "2/3": "66.666667%",
+                "1/4": "25%",
+                "2/4": "50%",
+                "3/4": "75%",
             },
-            minHeight               : ({theme}) => ({
-                ...theme('spacing')
+            minHeight: ({ theme }) => ({
+                ...theme("spacing"),
             }),
-            maxHeight               : {
-                none: 'none'
+            maxHeight: {
+                none: "none",
             },
-            minWidth                : ({theme}) => ({
-                ...theme('spacing'),
-                screen: '100vw'
+            minWidth: ({ theme }) => ({
+                ...theme("spacing"),
+                screen: "100vw",
             }),
-            maxWidth                : ({theme}) => ({
-                ...theme('spacing'),
-                screen: '100vw'
+            maxWidth: ({ theme }) => ({
+                ...theme("spacing"),
+                screen: "100vw",
             }),
-            transitionDuration      : {
-                '400': '400ms'
+            transitionDuration: {
+                400: "400ms",
             },
             transitionTimingFunction: {
-                'drawer': 'cubic-bezier(0.25, 0.8, 0.25, 1)'
+                drawer: "cubic-bezier(0.25, 0.8, 0.25, 1)",
             },
 
             // @tailwindcss/typography
-            typography: ({theme}) => ({
+            typography: ({ theme }) => ({
                 DEFAULT: {
                     css: {
-                        color              : 'var(--fuse-text-default)',
-                        '[class~="lead"]'  : {
-                            color: 'var(--fuse-text-secondary)'
+                        color: "var(--fuse-text-default)",
+                        '[class~="lead"]': {
+                            color: "var(--fuse-text-secondary)",
                         },
-                        a                  : {
-                            color: 'var(--fuse-primary-500)'
+                        a: {
+                            color: "var(--fuse-primary-500)",
                         },
-                        strong             : {
-                            color: 'var(--fuse-text-default)'
+                        strong: {
+                            color: "var(--fuse-text-default)",
                         },
-                        'ol > li::before'  : {
-                            color: 'var(--fuse-text-secondary)'
+                        "ol > li::before": {
+                            color: "var(--fuse-text-secondary)",
                         },
-                        'ul > li::before'  : {
-                            backgroundColor: 'var(--fuse-text-hint)'
+                        "ul > li::before": {
+                            backgroundColor: "var(--fuse-text-hint)",
                         },
-                        hr                 : {
-                            borderColor: 'var(--fuse-border)'
+                        hr: {
+                            borderColor: "var(--fuse-border)",
                         },
-                        blockquote         : {
-                            color          : 'var(--fuse-text-default)',
-                            borderLeftColor: 'var(--fuse-border)'
+                        blockquote: {
+                            color: "var(--fuse-text-default)",
+                            borderLeftColor: "var(--fuse-border)",
                         },
-                        h1                 : {
-                            color: 'var(--fuse-text-default)'
+                        h1: {
+                            color: "var(--fuse-text-default)",
                         },
-                        h2                 : {
-                            color: 'var(--fuse-text-default)'
+                        h2: {
+                            color: "var(--fuse-text-default)",
                         },
-                        h3                 : {
-                            color: 'var(--fuse-text-default)'
+                        h3: {
+                            color: "var(--fuse-text-default)",
                         },
-                        h4                 : {
-                            color: 'var(--fuse-text-default)'
+                        h4: {
+                            color: "var(--fuse-text-default)",
                         },
-                        'figure figcaption': {
-                            color: 'var(--fuse-text-secondary)'
+                        "figure figcaption": {
+                            color: "var(--fuse-text-secondary)",
                         },
-                        code               : {
-                            color     : 'var(--fuse-text-default)',
-                            fontWeight: '500'
+                        code: {
+                            color: "var(--fuse-text-default)",
+                            fontWeight: "500",
                         },
-                        'a code'           : {
-                            color: 'var(--fuse-primary)'
+                        "a code": {
+                            color: "var(--fuse-primary)",
                         },
-                        pre                : {
-                            color          : theme('colors.white'),
-                            backgroundColor: theme('colors.gray.800')
+                        pre: {
+                            color: theme("colors.white"),
+                            backgroundColor: theme("colors.gray.800"),
                         },
-                        thead              : {
-                            color            : 'var(--fuse-text-default)',
-                            borderBottomColor: 'var(--fuse-border)'
+                        thead: {
+                            color: "var(--fuse-text-default)",
+                            borderBottomColor: "var(--fuse-border)",
                         },
-                        'tbody tr'         : {
-                            borderBottomColor: 'var(--fuse-border)'
+                        "tbody tr": {
+                            borderBottomColor: "var(--fuse-border)",
                         },
-                        'ol[type="A" s]'   : false,
-                        'ol[type="a" s]'   : false,
-                        'ol[type="I" s]'   : false,
-                        'ol[type="i" s]'   : false
-                    }
+                        'ol[type="A" s]': false,
+                        'ol[type="a" s]': false,
+                        'ol[type="I" s]': false,
+                        'ol[type="i" s]': false,
+                    },
                 },
-                sm     : {
+                sm: {
                     css: {
-                        code : {
-                            fontSize: '1em'
+                        code: {
+                            fontSize: "1em",
                         },
-                        pre  : {
-                            fontSize: '1em'
+                        pre: {
+                            fontSize: "1em",
                         },
                         table: {
-                            fontSize: '1em'
-                        }
-                    }
-                }
-            })
-        }
+                            fontSize: "1em",
+                        },
+                    },
+                },
+            }),
+        },
     },
     variants: {
         accessibility: [],
-        alignContent: ['responsive'],
-        alignItems: ['responsive'],
-        alignSelf: ['responsive'],
+        alignContent: ["responsive"],
+        alignItems: ["responsive"],
+        alignSelf: ["responsive"],
         animation: [],
         backgroundAttachment: [],
         backgroundClip: [],
-        backgroundColor: ['dark', 'responsive', 'group-hover', 'hover'],
+        backgroundColor: ["dark", "responsive", "group-hover", "hover"],
         backgroundImage: [],
-        backgroundOpacity: ['dark', 'hover'],
+        backgroundOpacity: ["dark", "hover"],
         backgroundPosition: [],
         backgroundRepeat: [],
         backgroundSize: [],
         borderCollapse: [],
-        borderColor: ['dark', 'group-hover', 'hover'],
-        borderOpacity: ['group-hover', 'hover'],
-        borderRadius: ['responsive'],
+        borderColor: ["dark", "group-hover", "hover"],
+        borderOpacity: ["group-hover", "hover"],
+        borderRadius: ["responsive"],
         borderStyle: [],
-        borderWidth: ['dark', 'responsive', 'first', 'last', 'odd', 'even'],
-        boxShadow: ['dark', 'responsive', 'hover'],
+        borderWidth: ["dark", "responsive", "first", "last", "odd", "even"],
+        boxShadow: ["dark", "responsive", "hover"],
         boxSizing: [],
         cursor: [],
-        display: ['dark', 'responsive', 'hover', 'group-hover'],
-        divideColor: ['dark'],
+        display: ["dark", "responsive", "hover", "group-hover"],
+        divideColor: ["dark"],
         divideOpacity: [],
         divideStyle: [],
-        divideWidth: ['responsive'],
+        divideWidth: ["responsive"],
         fill: [],
-        flex: ['responsive'],
-        flexDirection: ['responsive'],
-        flexGrow: ['responsive'],
-        flexShrink: ['responsive'],
-        flexWrap: ['responsive'],
+        flex: ["responsive"],
+        flexDirection: ["responsive"],
+        flexGrow: ["responsive"],
+        flexShrink: ["responsive"],
+        flexWrap: ["responsive"],
         fontFamily: [],
-        fontSize: ['responsive'],
+        fontSize: ["responsive"],
         fontSmoothing: [],
-        fontStyle: ['responsive'],
+        fontStyle: ["responsive"],
         fontVariantNumeric: [],
-        fontWeight: ['responsive'],
-        gap: ['responsive'],
-        gridAutoColumns: ['responsive'],
-        gridAutoFlow: ['responsive'],
-        gridAutoRows: ['responsive'],
-        gridColumn: ['responsive'],
-        gridColumnEnd: ['responsive'],
-        gridColumnStart: ['responsive'],
-        gridRow: ['responsive'],
-        gridRowEnd: ['responsive'],
-        gridRowStart: ['responsive'],
-        gridTemplateColumns: ['responsive'],
-        gridTemplateRows: ['responsive'],
-        height: ['responsive'],
-        inset: ['responsive'],
-        justifyContent: ['responsive'],
-        justifyItems: ['responsive'],
-        justifySelf: ['responsive'],
-        letterSpacing: ['responsive'],
-        lineHeight: ['responsive'],
+        fontWeight: ["responsive"],
+        gap: ["responsive"],
+        gridAutoColumns: ["responsive"],
+        gridAutoFlow: ["responsive"],
+        gridAutoRows: ["responsive"],
+        gridColumn: ["responsive"],
+        gridColumnEnd: ["responsive"],
+        gridColumnStart: ["responsive"],
+        gridRow: ["responsive"],
+        gridRowEnd: ["responsive"],
+        gridRowStart: ["responsive"],
+        gridTemplateColumns: ["responsive"],
+        gridTemplateRows: ["responsive"],
+        height: ["responsive"],
+        inset: ["responsive"],
+        justifyContent: ["responsive"],
+        justifyItems: ["responsive"],
+        justifySelf: ["responsive"],
+        letterSpacing: ["responsive"],
+        lineHeight: ["responsive"],
         listStylePosition: [],
         listStyleType: [],
-        margin: ['responsive'],
-        maxHeight: ['responsive'],
-        maxWidth: ['responsive'],
-        minHeight: ['responsive'],
-        minWidth: ['responsive'],
-        objectFit: ['responsive'],
-        objectPosition: ['responsive'],
-        opacity: ['responsive', 'group-hover', 'hover'],
-        order: ['responsive'],
+        margin: ["responsive"],
+        maxHeight: ["responsive"],
+        maxWidth: ["responsive"],
+        minHeight: ["responsive"],
+        minWidth: ["responsive"],
+        objectFit: ["responsive"],
+        objectPosition: ["responsive"],
+        opacity: ["responsive", "group-hover", "hover"],
+        order: ["responsive"],
         outline: [],
-        overflow: ['responsive'],
-        overscrollBehavior: ['responsive'],
-        padding: ['responsive'],
-        placeContent: ['responsive'],
-        placeItems: ['responsive'],
-        placeSelf: ['responsive'],
-        pointerEvents: ['responsive'],
-        position: ['responsive'],
+        overflow: ["responsive"],
+        overscrollBehavior: ["responsive"],
+        padding: ["responsive"],
+        placeContent: ["responsive"],
+        placeItems: ["responsive"],
+        placeSelf: ["responsive"],
+        pointerEvents: ["responsive"],
+        position: ["responsive"],
         resize: [],
-        ringColor: ['dark', 'group-hover'],
-        ringOffsetColor: ['dark'],
+        ringColor: ["dark", "group-hover"],
+        ringOffsetColor: ["dark"],
         ringOffsetWidth: [],
         ringOpacity: [],
         ringWidth: [],
         rotate: [],
         scale: [],
         skew: [],
-        space: ['responsive'],
-        stroke: ['responsive'],
-        strokeWidth: ['responsive'],
-        tableLayout: ['responsive'],
-        textAlign: ['responsive'],
-        textColor: ['dark', 'group-hover', 'hover'],
-        textDecoration: ['group-hover', 'hover'],
-        textOpacity: ['group-hover', 'hover'],
-        textOverflow: ['responsive'],
+        space: ["responsive"],
+        stroke: ["responsive"],
+        strokeWidth: ["responsive"],
+        tableLayout: ["responsive"],
+        textAlign: ["responsive"],
+        textColor: ["dark", "group-hover", "hover"],
+        textDecoration: ["group-hover", "hover"],
+        textOpacity: ["group-hover", "hover"],
+        textOverflow: ["responsive"],
         textTransform: [],
         transform: [],
         transformOrigin: [],
@@ -399,33 +402,38 @@ const config = {
         transitionDuration: [],
         transitionProperty: [],
         transitionTimingFunction: [],
-        translate: ['hover'],
-        userSelect: ['responsive'],
-        visibility: ['responsive'],
-        whitespace: ['responsive'],
-        width: ['responsive'],
-        wordBreak: ['responsive'],
-        zIndex: ['responsive']
+        translate: ["hover"],
+        userSelect: ["responsive"],
+        visibility: ["responsive"],
+        whitespace: ["responsive"],
+        width: ["responsive"],
+        wordBreak: ["responsive"],
+        zIndex: ["responsive"],
     },
     corePlugins: {
-        appearance        : false,
-        container         : false,
-        float             : false,
-        clear             : false,
-        placeholderColor  : false,
+        appearance: false,
+        container: false,
+        float: false,
+        clear: false,
+        placeholderColor: false,
         placeholderOpacity: false,
-        verticalAlign     : false
+        verticalAlign: false,
     },
-    plugins    : [
-
+    plugins: [
         // Fuse - Tailwind plugins
-        require(path.resolve(__dirname, ('src/@fuse/tailwind/plugins/utilities'))),
-        require(path.resolve(__dirname, ('src/@fuse/tailwind/plugins/icon-size'))),
-        require(path.resolve(__dirname, ('src/@fuse/tailwind/plugins/theming')))({themes}),
+        require(path.resolve(
+            __dirname,
+            "src/@fuse/tailwind/plugins/utilities"
+        )),
+        require(path.resolve(
+            __dirname,
+            "src/@fuse/tailwind/plugins/icon-size"
+        )),
+        require("./src/@fuse/tailwind/plugins/theming")({ themes }),
 
         // Other third party and/or custom plugins
-        require('@tailwindcss/typography')({modifiers: ['sm', 'lg']})
-    ]
+        require("@tailwindcss/typography")({ modifiers: ["sm", "lg"] }),
+    ],
 };
 
 module.exports = config;

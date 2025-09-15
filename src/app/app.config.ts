@@ -27,10 +27,10 @@ import { getFunctions, provideFunctions } from '@angular/fire/functions';
 
 const MY_LUXON_FORMATS = {
     parse: {
-        dateInput: 'dd/MM/yyyy', // Formato de entrada
+        dateInput: 'dd/MM/yyyy',
     },
     display: {
-        dateInput: 'dd/MM/yyyy', // Formato en el input
+        dateInput: 'dd/MM/yyyy',
         monthYearLabel: 'MMMM yyyy',
         dateA11yLabel: 'DD',
         monthYearA11yLabel: 'MMMM yyyy',
@@ -62,18 +62,8 @@ export const appConfig: ApplicationConfig = {
             useValue: {
                 parse: {
                     dateInput: 'D',
-                    // dateInput: 'DD/MM/YYYY', // Formato de entrada
                 },
-                display: {
-                    // dateInput         : 'DDD',
-                    // monthYearLabel    : 'LLL yyyy',
-                    // dateA11yLabel     : 'DD',
-                    // monthYearA11yLabel: 'LLLL yyyy',
-                    // dateInput: 'DD/MM/YYYY', // Formato de visualización
-                    // monthYearLabel: 'MMMM YYYY',
-                    // dateA11yLabel: 'LL',
-                    // monthYearA11yLabel: 'MMMM YYYY',
-                },
+                display: {},
             },
         },
         { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },

@@ -41,20 +41,13 @@ export class NavigationService {
      * Get all navigation data
      */
 
-    public filtrarCompact(
-        menuData: any,
-        condicion1: boolean,
-        condicion2: boolean,
-        condicion3: boolean
-    ): any {
+    public filtrarCompact(menuData: any, condicion: boolean): any {
         const idsPermitidos = new Set<string>();
 
-        if (condicion1) {
-            idsPermitidos.add('anexarDocumento');
-        }
-
-        if (condicion3) {
+        if (condicion) {
             idsPermitidos.add('usuarioCreado');
+            idsPermitidos.add('anexarDocumento');
+        } else {
             idsPermitidos.add('anexarDocumento');
         }
 
@@ -70,8 +63,6 @@ export class NavigationService {
                     const [permisosUsuario] = usuario.permisos;
                     const compact = this.filtrarCompact(
                         navigation,
-                        permisosUsuario.access.usuario,
-                        permisosUsuario.access.gestor,
                         permisosUsuario.access.admin
                     );
                     navigation.compact = compact;

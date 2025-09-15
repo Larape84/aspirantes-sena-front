@@ -51,7 +51,7 @@ export class ModalNuevoUsuarioComponent implements OnInit {
                     type: 'basic',
                     access: {
                         gestor: true,
-                        admin: true,
+                        admin: values.rol === 'Administrador' ? true : false,
                         usuario: true,
                     },
                 },
