@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FirebaseService } from 'app/core/services/services-firebase.service';
 import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
 import { SharedModuleModule } from 'app/shared/module/shared-module.module';
@@ -28,7 +29,8 @@ export class ModalAgregarRegistrosComponent implements OnInit {
     constructor(
         private Sweetalert2Service: Sweetalert2Service,
         private fb: FormBuilder,
-        private firebaseService: FirebaseService
+        private firebaseService: FirebaseService,
+        private dialogRef: MatDialogRef<ModalAgregarRegistrosComponent>
     ) {}
     ngOnInit(): void {
         this.inirFotm();
@@ -110,6 +112,10 @@ export class ModalAgregarRegistrosComponent implements OnInit {
     public borrarArchivo(): void {
         this.data = [];
         this.name = '';
+    }
+
+    public ceerar(): void {
+        this.dialogRef.close();
     }
 
     public inirFotm(): void {

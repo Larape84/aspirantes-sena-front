@@ -1,0 +1,86 @@
+<section class="w-full flex flex-col gap-2">
+    <section class="flex items-center gap-2">
+        <mat-icon class="icon-size-10 text-gray-400">info</mat-icon>
+        <span class="font-bold text-gray-600 text-xl"
+            >Registrar nuevo usuario</span
+        >
+    </section>
+    <hr class="m-0 w-full" />
+    <form [formGroup]="form">
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Nombre completo</mat-label>
+            <input
+                formControlName="nombres"
+                type="text"
+                matInput
+                placeholder="Nombre completo"
+            />
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Numero de documento</mat-label>
+            <input
+                formControlName="cedula"
+                type="text"
+                matInput
+                placeholder="Numero de documento"
+            />
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Contraseña</mat-label>
+            <input
+                formControlName="contrasena"
+                type="text"
+                matInput
+                placeholder="Contraseña"
+            />
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Centro de formación</mat-label>
+            <!-- <input type="text" matInput placeholder="Centro de formación" /> -->
+
+            <mat-select formControlName="centroFormacion">
+                <mat-option disabled [value]="''">Seleccione</mat-option>
+
+                <mat-option
+                    [value]="item"
+                    *ngFor="let item of centroFormacion"
+                    >{{ item }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Rol</mat-label>
+
+            <mat-select formControlName="rol">
+                <mat-option disabled [value]="''">Seleccione</mat-option>
+
+                <mat-option [value]="item" *ngFor="let item of rolFormacion">{{
+                    item
+                }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+    <hr class="m-0 w-full" />
+    <section class="flex justify-evenly">
+        <button
+            (click)="guardar()"
+            [disabled]="form.invalid"
+            mat-raised-button
+            color="primary"
+        >
+            Guardar
+        </button>
+
+        <button
+            (click)="cerrar()"
+            mat-raised-button
+            class="bg-gray-400 text-white"
+        >
+            Cancelar
+        </button>
+    </section>
+</section>

@@ -66,14 +66,16 @@ export class FirebaseService {
         );
     }
 
-    createDocumentWithId<T>(collectionName: string, data: T): Observable<void> {
+    createDocumentWithId<T>(
+        collectionName: string,
+        id: string,
+        data: T
+    ): Observable<void> {
         const collectionRef = collection(this.firestore, collectionName);
-        const docRef = doc(collectionRef);
-        const dataWithId = { ...data, token: this.tokenSesion };
+        const docRef = doc(collectionRef, id);
+        const dataWithId = { ...data, id: docRef.id, token: this.tokenSesion };
         return from(setDoc(docRef, dataWithId));
     }
-
-    // Crear convocatoria con subcolección dataConvocatoria
 
     createConvocatoria(form: any): Observable<any> {
         return this.http.post(
