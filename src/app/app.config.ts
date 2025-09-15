@@ -23,6 +23,7 @@ import {
     MAT_DATE_FORMATS,
     MAT_DATE_LOCALE,
 } from '@angular/material/core';
+import { getFunctions, provideFunctions } from '@angular/fire/functions';
 
 const MY_LUXON_FORMATS = {
     parse: {
@@ -40,7 +41,8 @@ export const appConfig: ApplicationConfig = {
     providers: [
         importProvidersFrom(
             provideFirebaseApp(() => initializeApp(environment.firebase)),
-            provideFirestore(() => getFirestore())
+            provideFirestore(() => getFirestore()),
+            provideFunctions(() => getFunctions())
         ),
         provideAnimations(),
         provideHttpClient(),

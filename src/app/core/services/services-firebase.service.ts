@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
     DocumentData,
@@ -14,6 +15,7 @@ import {
     where,
 } from '@angular/fire/firestore';
 import { from, map, Observable, switchMap } from 'rxjs';
+import { Functions, httpsCallable } from '@angular/fire/functions';
 
 @Injectable({
     providedIn: 'root',
@@ -25,7 +27,11 @@ export class FirebaseService {
     encryptedText: string = '';
     decryptedText: string = '';
 
-    constructor(private firestore: Firestore) {}
+    constructor(
+        private firestore: Firestore,
+        private http: HttpClient,
+        private functions: Functions
+    ) {}
 
     getCollection<T>(collectionName: string): Observable<T[]> {
         const ref = collection(this.firestore, collectionName);
@@ -68,30 +74,12 @@ export class FirebaseService {
     }
 
     // Crear convocatoria con subcolección dataConvocatoria
-    createConvocatoria(form: any): Observable<void> {
-        const { dataConcocatoria, ...rest } = form;
-        const payload = { ...rest, token: this.tokenSesion };
 
-        const promise = (async () => {
-            // Documento principal con token
-            const docRef = doc(collection(this.firestore, 'convocatorias'));
-            await setDoc(docRef, payload);
-            console.log(dataConcocatoria, docRef, 'dataConcocatoria');
-            // Subcolección con token en cada fila
-
-            const subCollectionRef = collection(
-                this.firestore,
-                `convocatorias/${docRef.id}/dataConvocatoria`
-            );
-            for (const row of dataConcocatoria) {
-                await addDoc(subCollectionRef, {
-                    ...row,
-                    token: this.tokenSesion,
-                });
-            }
-        })();
-
-        return from(promise);
+    createConvocatoria(form: any): Observable<any> {
+        return this.http.post(
+            'https://us-central1-aspirante-sena.cloudfunctions.net/createConvocatoria',
+            { ...form, token: this.tokenSesion }
+        );
     }
 
     updateDocument(

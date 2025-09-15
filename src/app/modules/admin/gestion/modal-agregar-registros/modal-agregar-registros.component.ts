@@ -37,27 +37,19 @@ export class ModalAgregarRegistrosComponent implements OnInit {
     public guardar(): void {
         const form = this.form.getRawValue();
 
-        // convocatoria: ['', [Validators.required]],
-        //       vigencia: ['', [Validators.required]],
-        //       centroFormacion: ['', [Validators.required]],
-        //       usuario: ['', [Validators.required]],
-        //       estado: [true, [Validators.required]],
-
         const payload = {
             convocatoria: form.convocatoria,
             vigencia: form.vigencia,
             centroFormacion: form.centroFormacion,
-            dataConcocatoria: this.data,
+            dataConvocatoria: this.data,
             estado: form.estado,
         };
 
         console.log(payload);
 
         this.firebaseService.createConvocatoria(payload).subscribe({
-            next: (resp) => {
-                console.log(resp);
-            },
-            error: (err) => {
+            next: (resp: any) => {},
+            error: (err: any) => {
                 console.log(err);
             },
         });
