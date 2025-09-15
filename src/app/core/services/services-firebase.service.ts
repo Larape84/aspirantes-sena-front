@@ -3,6 +3,7 @@ import {
     DocumentData,
     DocumentReference,
     Firestore,
+    addDoc,
     collection,
     doc,
     getDoc,
@@ -59,15 +60,38 @@ export class FirebaseService {
         );
     }
 
-    createDocumentWithId<T>(
-        collectionName: string,
-        docId: string,
-        data: T
-    ): Observable<void> {
+    createDocumentWithId<T>(collectionName: string, data: T): Observable<void> {
         const collectionRef = collection(this.firestore, collectionName);
-        const docRef = doc(collectionRef, docId);
-        const dataWithId = { ...data, id: docId, token: this.tokenSesion };
+        const docRef = doc(collectionRef);
+        const dataWithId = { ...data, token: this.tokenSesion };
         return from(setDoc(docRef, dataWithId));
+    }
+
+    // Crear convocatoria con subcolección dataConvocatoria
+    createConvocatoria(form: any): Observable<void> {
+        const { dataConcocatoria, ...rest } = form;
+        const payload = { ...rest, token: this.tokenSesion };
+
+        const promise = (async () => {
+            // Documento principal con token
+            const docRef = doc(collection(this.firestore, 'convocatorias'));
+            await setDoc(docRef, payload);
+            console.log(dataConcocatoria, docRef, 'dataConcocatoria');
+            // Subcolección con token en cada fila
+
+            const subCollectionRef = collection(
+                this.firestore,
+                `convocatorias/${docRef.id}/dataConvocatoria`
+            );
+            for (const row of dataConcocatoria) {
+                await addDoc(subCollectionRef, {
+                    ...row,
+                    token: this.tokenSesion,
+                });
+            }
+        })();
+
+        return from(promise);
     }
 
     updateDocument(

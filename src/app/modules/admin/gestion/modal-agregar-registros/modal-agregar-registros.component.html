@@ -1,0 +1,121 @@
+<section class="w-full flex flex-col gap-2">
+    <section class="flex items-center gap-2">
+        <mat-icon class="icon-size-10 text-gray-400">info</mat-icon>
+        <span class="font-bold text-gray-600 text-xl"
+            >Registrar nueva convocatoria</span
+        >
+    </section>
+    <hr class="m-0 w-full" />
+    <form [formGroup]="form">
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Convocatoria</mat-label>
+            <input
+                formControlName="convocatoria"
+                type="text"
+                matInput
+                placeholder="Convocatoria"
+            />
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Vigencia</mat-label>
+            <input
+                formControlName="vigencia"
+                type="text"
+                matInput
+                placeholder="Vigencia"
+            />
+        </mat-form-field>
+
+        <mat-form-field class="fuse-mat-dense w-full">
+            <mat-label>Centro de formación</mat-label>
+            <!-- <input type="text" matInput placeholder="Centro de formación" /> -->
+
+            <mat-select formControlName="centroFormacion">
+                <mat-option disabled [value]="''">Seleccione</mat-option>
+
+                <mat-option
+                    [value]="item"
+                    *ngFor="let item of centroFormacion"
+                    >{{ item }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+
+        <div
+            *ngIf="!data.length"
+            (click)="file.click()"
+            (dragover)="onDragOver($event)"
+            (drop)="onDrop($event)"
+            class="flex h-40 w-full hover:bg-gray-100 cursor-pointer flex-col items-center justify-center rounded-md border border-gray-100 px-2 hover:border-dotted"
+        >
+            <div class="w-14 lg:w-18 xl:w-30">
+                <img
+                    src="assets/icons/upload.svg"
+                    alt=""
+                    class="object-cover"
+                />
+            </div>
+
+            <div
+                class="mt-2 text-center font-semibold text-gray-600"
+                style="margin-bottom: 7px"
+            >
+                Arrastre y suelte archivos aquí para cargarlos.
+            </div>
+            <input
+                (change)="onFileChange($event)"
+                multiple
+                type="file"
+                accept=".xlsx,.xls"
+                hidden
+                [multiple]="false"
+                class=""
+                #file
+            />
+        </div>
+
+        <div
+            *ngIf="!!data.length"
+            class="flex flex-col gap-2 px-2 lg:max-h-40 xl:max-h-64"
+        >
+            <div class="sticky top-0 z-99 mb-2 mt-2 flex w-full bg-white p-2">
+                <span
+                    class="mr-3 rounded-full bg-blue-500 px-3 py-1 font-semibold text-white"
+                >
+                    Total registros : {{ data.length }}
+                </span>
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <img
+                        src="assets/icons/excel.svg"
+                        class="icon-size-5"
+                        alt=""
+                    />
+                    <span class="ml-2 text-gray-600">{{ name }}</span>
+                </div>
+
+                <div class="flex flex-row gap-2">
+                    <button
+                        (click)="borrarArchivo()"
+                        mat-icon-button
+                        type="button"
+                    >
+                        <mat-icon class="mat-18">highlight_off</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="m-0 w-full" />
+    <section class="flex justify-evenly">
+        <button (click)="guardar()" mat-raised-button color="primary">
+            Guardar
+        </button>
+
+        <button mat-raised-button class="bg-gray-400 text-white">
+            Cancelar
+        </button>
+    </section>
+</section>
