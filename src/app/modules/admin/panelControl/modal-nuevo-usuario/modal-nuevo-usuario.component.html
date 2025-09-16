@@ -15,6 +15,7 @@
                 matInput
                 placeholder="Nombre completo"
             />
+            <mat-error>{{ ErrorService.msgError(form, "nombres") }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-dense w-full">
@@ -25,16 +26,57 @@
                 matInput
                 placeholder="Numero de documento"
             />
+
+            <mat-error>{{ ErrorService.msgError(form, "cedula") }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-dense w-full">
             <mat-label>Contraseña</mat-label>
+
             <input
-                formControlName="contrasena"
-                type="text"
+                id="password"
                 matInput
-                placeholder="Contraseña"
+                type="password"
+                autocomplete="off"
+                [formControlName]="'contrasena'"
+                #passwordField
             />
+            <button
+                mat-icon-button
+                type="button"
+                (click)="
+                    passwordField.type === 'password'
+                        ? (passwordField.type = 'text')
+                        : (passwordField.type = 'password')
+                "
+                matSuffix
+            >
+                <button
+                    mat-icon-button
+                    type="button"
+                    (click)="
+                        passwordField.type === 'password'
+                            ? (passwordField.type = 'text')
+                            : (passwordField.type = 'password')
+                    "
+                    matSuffix
+                >
+                    <mat-icon
+                        class="icon-size-5"
+                        *ngIf="passwordField.type === 'password'"
+                        [svgIcon]="'heroicons_solid:eye'"
+                    ></mat-icon>
+                    <mat-icon
+                        class="icon-size-5"
+                        *ngIf="passwordField.type === 'text'"
+                        [svgIcon]="'heroicons_solid:eye-slash'"
+                    ></mat-icon>
+                </button>
+            </button>
+
+            <mat-error>{{
+                ErrorService.msgError(form, "contrasena")
+            }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-dense w-full">
@@ -50,6 +92,9 @@
                     >{{ item }}</mat-option
                 >
             </mat-select>
+            <mat-error>{{
+                ErrorService.msgError(form, "centroFormacion")
+            }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-dense w-full">
@@ -62,6 +107,7 @@
                     item
                 }}</mat-option>
             </mat-select>
+            <mat-error>{{ ErrorService.msgError(form, "rol") }}</mat-error>
         </mat-form-field>
     </form>
     <hr class="m-0 w-full" />

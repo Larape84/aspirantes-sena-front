@@ -7,6 +7,7 @@ import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
 import { InicioSesionService } from 'app/modules/auth/sign-in/inicio-sesion.service';
 import { SharedModuleModule } from 'app/shared/module/shared-module.module';
 import * as XLSX from 'xlsx';
+import { ErrorService } from '../../../../core/services/error.service';
 
 @Component({
     selector: 'app-modal-agregar-registros',
@@ -27,6 +28,7 @@ export class ModalAgregarRegistrosComponent implements OnInit {
     ];
 
     public form: FormGroup = new FormGroup({});
+    public years = [];
 
     public _iniicioSesionService = inject(InicioSesionService);
     public user = null;
@@ -35,11 +37,24 @@ export class ModalAgregarRegistrosComponent implements OnInit {
         private Sweetalert2Service: Sweetalert2Service,
         private fb: FormBuilder,
         private firebaseService: FirebaseService,
-        private dialogRef: MatDialogRef<ModalAgregarRegistrosComponent>
+        private dialogRef: MatDialogRef<ModalAgregarRegistrosComponent>,
+        public ErrorService: ErrorService
     ) {}
     ngOnInit(): void {
         this.obtenerUsuario();
         this.inirFotm();
+        this.years = this.getYearsDescFrom2025();
+    }
+
+    public getYearsDescFrom2025(): string[] {
+        const currentYear = new Date().getFullYear();
+        const years: string[] = [];
+
+        for (let year = currentYear; year >= 2025; year--) {
+            years.push(year.toString());
+        }
+
+        return years;
     }
 
     public obtenerUsuario(): void {
@@ -141,7 +156,7 @@ export class ModalAgregarRegistrosComponent implements OnInit {
 
     public inirFotm(): void {
         this.form = this.fb.group({
-            convocatoria: ['', [Validators.required]],
+            convocatoria: ['', [Validators.required, Validators.minLength(5)]],
             vigencia: ['', [Validators.required]],
             centroFormacion: ['', [Validators.required]],
             estado: [true, [Validators.required]],

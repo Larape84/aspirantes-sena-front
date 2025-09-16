@@ -72,7 +72,15 @@ export class GestionComponent implements OnInit {
             });
     }
 
-    public descargarData(): void {}
+    public descargarData(): void {
+        const data = this.dataSource.data.map((item) => {
+            const { id, token, ...rest } = item;
+            return rest;
+        });
+
+        const reporte = `Reporte de convocatorias registradas`;
+        this._utilService.exportAsExcelFile(data, reporte);
+    }
 
     public listarUsuarios(loading = true): void {
         if (loading) {
@@ -94,7 +102,9 @@ export class GestionComponent implements OnInit {
         });
     }
 
-    public filtrar(text: string): void {}
+    public filtrar(text: string): void {
+        this.dataSource.filter = text;
+    }
 
     public cambiarEstadoDependencia(item: any): void {
         this._sweetalertService.startLoading({});

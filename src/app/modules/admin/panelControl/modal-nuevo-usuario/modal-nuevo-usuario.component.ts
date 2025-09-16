@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FirebaseService } from 'app/core/services/services-firebase.service';
 import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
 import { SharedModuleModule } from 'app/shared/module/shared-module.module';
+import { validarUsuarioRegistrado } from 'app/shared/Validators/input.Validator';
+import { ErrorService } from '../../../../core/services/error.service';
 
 @Component({
     selector: 'app-modal-nuevo-usuario',
@@ -28,7 +30,9 @@ export class ModalNuevoUsuarioComponent implements OnInit {
         private _dialoRef: MatDialogRef<ModalNuevoUsuarioComponent>,
         private fb: FormBuilder,
         private firebaseService: FirebaseService,
-        private _sweetalertService: Sweetalert2Service
+        private _sweetalertService: Sweetalert2Service,
+        @Inject(MAT_DIALOG_DATA) public usuarios: any,
+        public ErrorService: ErrorService
     ) {}
 
     ngOnInit(): void {
@@ -79,8 +83,15 @@ export class ModalNuevoUsuarioComponent implements OnInit {
     public inirFotm(): void {
         this.form = this.fb.group({
             nombres: ['', [Validators.required]],
-            cedula: ['', [Validators.required]],
-            contrasena: ['', [Validators.required]],
+            cedula: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(5),
+                    validarUsuarioRegistrado(this.usuarios || []),
+                ],
+            ],
+            contrasena: ['', [Validators.minLength(5), Validators.required]],
             centroFormacion: ['', [Validators.required]],
             activo: [true, [Validators.required]],
             rol: ['', [Validators.required]],

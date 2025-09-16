@@ -48,9 +48,16 @@ export class PanelControlComponent implements OnInit {
     public modalusuarios(): void {}
 
     public openModal(): void {
+        const usuariosRegistrados = [
+            ...this.dataSource.data.map((item) => {
+                return item.cedula;
+            }),
+        ];
+
         this._dialogService
             .open(ModalNuevoUsuarioComponent, {
                 panelClass: ['w-[40rem]'],
+                data: usuariosRegistrados,
             })
             .afterClosed()
             .subscribe({
@@ -83,24 +90,9 @@ export class PanelControlComponent implements OnInit {
     }
 
     public descargarData(): void {
-        const data = this.dataSource.data.map((value) => {
-            const item = {
-                'Nro de documento': value.id,
-                Nombres: value.nombre,
-                Apellidos: value.apellido,
-                Cargo: value.cargo,
-                'Centro de formación': value.centroCosto,
-                'Usuario activo': value.activo,
-                'Codigo Qr': value.permisos[0].access.usuario,
-                Restaurant: value.permisos[0].access.gestor,
-                Administrador: value.permisos[0].access.admin,
-            };
-
-            return item;
-        });
         const hoy = DateTime.local().toFormat('dd-MM-yyyy HH mm');
         const reporte = `Reporte de usuarios registrados a corte ${hoy}`;
-        this._utilService.exportAsExcelFile(data, reporte);
+        this._utilService.exportAsExcelFile(this.dataSource.data, reporte);
     }
 
     public filtrar(value: string): void {

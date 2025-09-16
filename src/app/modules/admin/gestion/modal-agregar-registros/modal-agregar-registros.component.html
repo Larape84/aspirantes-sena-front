@@ -15,21 +15,26 @@
                 matInput
                 placeholder="Convocatoria"
             />
+            <mat-error>{{
+                ErrorService.msgError(form, "convocatoria")
+            }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-dense w-full">
             <mat-label>Vigencia</mat-label>
-            <input
-                formControlName="vigencia"
-                type="text"
-                matInput
-                placeholder="Vigencia"
-            />
+
+            <mat-select formControlName="vigencia">
+                <mat-option [value]="''" disabled>Seleccione</mat-option>
+                <mat-option [value]="item" *ngFor="let item of years">{{
+                    item
+                }}</mat-option>
+            </mat-select>
+
+            <mat-error>{{ ErrorService.msgError(form, "vigencia") }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="fuse-mat-dense w-full">
             <mat-label>Centro de formación</mat-label>
-            <!-- <input type="text" matInput placeholder="Centro de formación" /> -->
 
             <mat-select formControlName="centroFormacion">
                 <mat-option disabled [value]="''">Seleccione</mat-option>
@@ -40,6 +45,9 @@
                     >{{ item }}</mat-option
                 >
             </mat-select>
+            <mat-error>{{
+                ErrorService.msgError(form, "centroFormacion")
+            }}</mat-error>
         </mat-form-field>
 
         <div

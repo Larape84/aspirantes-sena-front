@@ -1,25 +1,28 @@
-<div class="flex flex-col w-full min-w-0 sm:absolute sm:inset-0 sm:overflow-hidden">
-
-    <mat-drawer-container class="flex-auto sm:h-full md:pb-0 pb-20 "
-    style="max-height: calc(100vh - 64px);">
-
+<div
+    class="flex flex-col w-full min-w-0 sm:absolute sm:inset-0 sm:overflow-hidden"
+>
+    <mat-drawer-container
+        class="flex-auto sm:h-full md:pb-0 pb-20"
+        style="max-height: calc(100vh - 64px)"
+    >
         <!-- Drawer -->
         <mat-drawer
             class="sm:w-96 dark:bg-gray-900"
             [autoFocus]="false"
             [mode]="drawerMode"
             [opened]="drawerOpened"
-            #drawer>
+            #drawer
+        >
             <!-- Header -->
             <div class="flex items-center justify-between m-8 mr-6 sm:my-10">
                 <!-- Title -->
-                <div class="text-4xl font-semibold tracking-tight leading-none ">Configuración</div>
+                <div class="text-4xl font-semibold tracking-tight leading-none">
+                    Configuración
+                </div>
                 <!-- Close button -->
                 <div class="lg:hidden">
-                    <button
-                        mat-icon-button
-                        (click)="drawer.close()">
-                        <mat-icon >close</mat-icon>
+                    <button mat-icon-button (click)="drawer.close()">
+                        <mat-icon>close</mat-icon>
                     </button>
                 </div>
             </div>
@@ -28,21 +31,37 @@
                 <ng-container *ngFor="let panel of panels">
                     <div
                         class="flex px-8 py-4 cursor-pointer"
-                        [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedPanel || selectedPanel !== panel?.id,
-                                    'bg-primary-50 dark:bg-hover': selectedPanel && selectedPanel === panel?.id}"
-                        (click)="goToPanel(panel.id)">
+                        [ngClass]="{
+                            'hover:bg-gray-100 dark:hover:bg-hover':
+                                !selectedPanel || selectedPanel !== panel?.id,
+                            'bg-primary-50 dark:bg-hover':
+                                selectedPanel && selectedPanel === panel?.id
+                        }"
+                        (click)="goToPanel(panel.id)"
+                    >
                         <mat-icon
-                            [ngClass]="{'text-hint': !selectedPanel || selectedPanel !== panel?.id,
-                                        'text-primary dark:text-primary-500': selectedPanel && selectedPanel === panel?.id}"
-                            [svgIcon]="panel?.icon"></mat-icon>
+                            [ngClass]="{
+                                'text-hint':
+                                    !selectedPanel ||
+                                    selectedPanel !== panel?.id,
+                                'text-primary dark:text-primary-500':
+                                    selectedPanel && selectedPanel === panel?.id
+                            }"
+                            [svgIcon]="panel?.icon"
+                        ></mat-icon>
                         <div class="ml-3">
                             <div
                                 class="font-medium leading-6"
-                                [ngClass]="{'text-primary dark:text-primary-500': selectedPanel && selectedPanel === panel?.id}">
-                                {{panel?.title}}
+                                [ngClass]="{
+                                    'text-primary dark:text-primary-500':
+                                        selectedPanel &&
+                                        selectedPanel === panel?.id
+                                }"
+                            >
+                                {{ panel?.title }}
                             </div>
                             <div class="mt-0.5 text-secondary">
-                                {{panel?.description}}
+                                {{ panel?.description }}
                             </div>
                         </div>
                     </div>
@@ -52,24 +71,24 @@
 
         <!-- Drawer content -->
         <mat-drawer-content class="flex flex-col">
-
             <!-- Main -->
             <div class="flex-auto px-6 pt-9 pb-12 md:p-8 md:pb-12 lg:p-12">
-
                 <!-- Panel header -->
                 <div class="flex items-center">
-
                     <!-- Drawer toggle -->
                     <button
                         class="lg:hidden -ml-2"
                         mat-icon-button
-                        (click)="drawer.toggle()">
+                        (click)="drawer.toggle()"
+                    >
                         <mat-icon>menu</mat-icon>
                     </button>
 
                     <!-- Panel title -->
-                    <div class="ml-2 lg:ml-0 text-3xl font-bold tracking-tight leading-none">
-                        {{getPanelInfo(selectedPanel).title}}
+                    <div
+                        class="ml-2 lg:ml-0 text-3xl font-bold tracking-tight leading-none"
+                    >
+                        {{ getPanelInfo(selectedPanel).title }}
                     </div>
                 </div>
 
@@ -78,151 +97,263 @@
                     <ng-container [ngSwitch]="selectedPanel">
                         <!-- Account -->
                         <ng-container *ngSwitchCase="'account'">
-
                             <div class="w-full flex flex-col">
-
-                                <div class="w-full flex items-center justify-center">
-
-                                    <img  src="assets/images/avatars/user.jpg" alt="" class="object-cover icon-size-24 rounded-full overflow-hidden border-2 border-gray-700">
-
+                                <div
+                                    class="w-full flex items-center justify-center"
+                                >
+                                    <img
+                                        src="assets/images/avatars/user.jpg"
+                                        alt=""
+                                        class="object-cover icon-size-24 rounded-full overflow-hidden border-2 border-gray-700"
+                                    />
                                 </div>
 
-                                <form [formGroup]="accountForm" class="mx-auto  md:grid flex flex-col  grid-cols-2 gap-4  mt-5 width">
-
-                                    <mat-form-field class="w-full fuse-mat-dense">
+                                <form
+                                    [formGroup]="accountForm"
+                                    class="mx-auto md:grid flex flex-col grid-cols-2 gap-4 mt-5 width"
+                                >
+                                    <mat-form-field
+                                        class="w-full fuse-mat-dense"
+                                    >
                                         <mat-label>Nombre Completo</mat-label>
-                                        <input formControlName="nombres" type="text" matInput autocomplete="off">
-                                        <mat-error>{{errorService.msgError(accountForm, 'nombres')}}</mat-error>
-
+                                        <input
+                                            formControlName="nombres"
+                                            type="text"
+                                            matInput
+                                            autocomplete="off"
+                                        />
+                                        <mat-error>{{
+                                            errorService.msgError(
+                                                accountForm,
+                                                "nombres"
+                                            )
+                                        }}</mat-error>
                                     </mat-form-field>
 
-
-
-                                    <mat-form-field class="w-full fuse-mat-dense">
+                                    <mat-form-field
+                                        class="w-full fuse-mat-dense"
+                                    >
                                         <mat-label>identificación</mat-label>
-                                        <input mask="separator.0" thousandSeparator="." formControlName="identification" type="text" matInput autocomplete="off">
-                                        <mat-error>{{errorService.msgError(accountForm, 'identification')}}</mat-error>
-
+                                        <input
+                                            mask="separator.0"
+                                            thousandSeparator="."
+                                            formControlName="identification"
+                                            type="text"
+                                            matInput
+                                            autocomplete="off"
+                                        />
+                                        <mat-error>{{
+                                            errorService.msgError(
+                                                accountForm,
+                                                "identification"
+                                            )
+                                        }}</mat-error>
                                     </mat-form-field>
 
-                                    <mat-form-field class="w-full fuse-mat-dense">
-                                        <mat-label>Centro de formación</mat-label>
-                                        <!-- <input formControlName="centro" type="text" matInput autocomplete="off"> -->
+                                    <mat-form-field
+                                        class="w-full fuse-mat-dense"
+                                    >
+                                        <mat-label
+                                            >Centro de formación</mat-label
+                                        >
+                                        <input
+                                            formControlName="centro"
+                                            type="text"
+                                            matInput
+                                            autocomplete="off"
+                                        />
 
-                                        <mat-select formControlName="centro" placeholder="">
-                                            <mat-option *ngFor="let item of centros" [value]="item">{{item}}</mat-option>
-                                        </mat-select>
-
-
-                                        <mat-error>{{errorService.msgError(accountForm, 'centro')}}</mat-error>
-
+                                        <mat-error>{{
+                                            errorService.msgError(
+                                                accountForm,
+                                                "centro"
+                                            )
+                                        }}</mat-error>
                                     </mat-form-field>
 
+                                    <mat-form-field
+                                        class="w-full fuse-mat-dense"
+                                    >
+                                        <mat-label>Perfil</mat-label>
+                                        <input
+                                            formControlName="profile"
+                                            type="text"
+                                            matInput
+                                            autocomplete="off"
+                                        />
 
-
-
-
-
-                                    <mat-form-field class="w-full fuse-mat-dense">
-                                        <mat-label>Cargo</mat-label>
-                                        <!-- <input formControlName="profile" type="text" matInput autocomplete="off"> -->
-
-                                        <mat-select formControlName="profile" placeholder="">
-                                            <mat-option *ngFor="let item of cargos" [value]="item">{{item}}</mat-option>
-                                        </mat-select>
-                                        <mat-error>{{errorService.msgError(accountForm, 'profile')}}</mat-error>
-
+                                        <mat-error>{{
+                                            errorService.msgError(
+                                                accountForm,
+                                                "profile"
+                                            )
+                                        }}</mat-error>
                                     </mat-form-field>
 
-                                    <div class="col-span-2 w-full flex justify-end">
-
-                                        <button [disabled]="accountForm.invalid" (click)="actualizarDatos()" mat-raised-button type="button" color="primary">
+                                    <div
+                                        class="col-span-2 w-full flex justify-end"
+                                    >
+                                        <!-- <button
+                                            [disabled]="accountForm.invalid"
+                                            (click)="actualizarDatos()"
+                                            mat-raised-button
+                                            type="button"
+                                            color="primary"
+                                        >
                                             Actualizar
-                                        </button>
-
+                                        </button> -->
                                     </div>
-
-
-
                                 </form>
-
-
-
-
                             </div>
-
-
                         </ng-container>
                         <!-- Security -->
                         <ng-container *ngSwitchCase="'security'">
+                            <div class="w-full">Cambio de contraseña</div>
 
-                            <div class="w-full">
-                                Cambio de contraseña
-
-                            </div>
-
-                            <form [formGroup]="fomrPassword" class="mx-auto  grid grid-cols-1 gap-4 mt-5 width-contraseña">
-
+                            <form
+                                [formGroup]="fomrPassword"
+                                class="mx-auto grid grid-cols-1 gap-4 mt-5 width-contraseña"
+                            >
                                 <mat-form-field class="fuse-mat-dense">
                                     <mat-label>Contraseña actual</mat-label>
-                                    <input formControlName="pass" #passwordField type="password" autocomplete="off" class="" matInput>
+                                    <input
+                                        formControlName="pass"
+                                        #passwordField
+                                        type="password"
+                                        autocomplete="off"
+                                        class=""
+                                        matInput
+                                    />
 
-                                    <button (click)="passwordField.type === 'text' ? passwordField.type = 'password' : passwordField.type = 'text' " mat-icon-button type="button">
-                                        <mat-icon class="icon-size-5" [svgIcon]="passwordField.type === 'text' ? 'heroicons_solid:eye-slash' : 'heroicons_solid:eye' "  ></mat-icon>
-
+                                    <button
+                                        (click)="
+                                            passwordField.type === 'text'
+                                                ? (passwordField.type =
+                                                      'password')
+                                                : (passwordField.type = 'text')
+                                        "
+                                        mat-icon-button
+                                        type="button"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="
+                                                passwordField.type === 'text'
+                                                    ? 'heroicons_solid:eye-slash'
+                                                    : 'heroicons_solid:eye'
+                                            "
+                                        ></mat-icon>
                                     </button>
-                                    <mat-error>{{errorService.msgError(fomrPassword, 'pass')}}</mat-error>
-
-
+                                    <mat-error>{{
+                                        errorService.msgError(
+                                            fomrPassword,
+                                            "pass"
+                                        )
+                                    }}</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field class="fuse-mat-dense">
                                     <mat-label>Nueva contraseña</mat-label>
-                                    <input  formControlName="newPass" #passwordField2 type="password" autocomplete="off" class="" matInput>
+                                    <input
+                                        formControlName="newPass"
+                                        #passwordField2
+                                        type="password"
+                                        autocomplete="off"
+                                        class=""
+                                        matInput
+                                    />
 
-                                    <button (click)="passwordField2.type === 'text' ? passwordField2.type = 'password' : passwordField2.type = 'text' " mat-icon-button type="button">
-                                        <mat-icon class="icon-size-5" [svgIcon]="passwordField2.type === 'text' ? 'heroicons_solid:eye-slash' : 'heroicons_solid:eye' "  ></mat-icon>
-
+                                    <button
+                                        (click)="
+                                            passwordField2.type === 'text'
+                                                ? (passwordField2.type =
+                                                      'password')
+                                                : (passwordField2.type = 'text')
+                                        "
+                                        mat-icon-button
+                                        type="button"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="
+                                                passwordField2.type === 'text'
+                                                    ? 'heroicons_solid:eye-slash'
+                                                    : 'heroicons_solid:eye'
+                                            "
+                                        ></mat-icon>
                                     </button>
-                                    <mat-error>{{errorService.msgError(fomrPassword, 'newPass')}}</mat-error>
-
+                                    <mat-error>{{
+                                        errorService.msgError(
+                                            fomrPassword,
+                                            "newPass"
+                                        )
+                                    }}</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field class="fuse-mat-dense">
                                     <mat-label>Confirmar contraseña</mat-label>
-                                    <input formControlName="repeatPass" #passwordField3 type="password" autocomplete="off" class="" matInput>
+                                    <input
+                                        formControlName="repeatPass"
+                                        #passwordField3
+                                        type="password"
+                                        autocomplete="off"
+                                        class=""
+                                        matInput
+                                    />
 
-                                    <button (click)="passwordField3.type === 'text' ? passwordField3.type = 'password' : passwordField3.type = 'text' " mat-icon-button type="button">
-                                        <mat-icon class="icon-size-5" [svgIcon]="passwordField3.type === 'text' ? 'heroicons_solid:eye-slash' : 'heroicons_solid:eye' "  ></mat-icon>
-
+                                    <button
+                                        (click)="
+                                            passwordField3.type === 'text'
+                                                ? (passwordField3.type =
+                                                      'password')
+                                                : (passwordField3.type = 'text')
+                                        "
+                                        mat-icon-button
+                                        type="button"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="
+                                                passwordField3.type === 'text'
+                                                    ? 'heroicons_solid:eye-slash'
+                                                    : 'heroicons_solid:eye'
+                                            "
+                                        ></mat-icon>
                                     </button>
 
-                                    <mat-error>{{errorService.msgError(fomrPassword, 'repeatPass')}}</mat-error>
-
-
+                                    <mat-error>{{
+                                        errorService.msgError(
+                                            fomrPassword,
+                                            "repeatPass"
+                                        )
+                                    }}</mat-error>
                                 </mat-form-field>
 
-
-
-                                <div class="w-full flex justify-end mb-40 md:mb-0">
-
-                                    <button (click)="actualizarContrasena()" [disabled]="fomrPassword.invalid ||  fomrPassword.get('repeatPass').value !== fomrPassword.get('newPass').value" class="" type="button" mat-raised-button color="primary">
+                                <div
+                                    class="w-full flex justify-end mb-40 md:mb-0"
+                                >
+                                    <button
+                                        (click)="actualizarContrasena()"
+                                        [disabled]="
+                                            fomrPassword.invalid ||
+                                            fomrPassword.get('repeatPass')
+                                                .value !==
+                                                fomrPassword.get('newPass')
+                                                    .value
+                                        "
+                                        class=""
+                                        type="button"
+                                        mat-raised-button
+                                        color="primary"
+                                    >
                                         Actualizar contraseña
-
                                     </button>
                                 </div>
-
                             </form>
-
                         </ng-container>
-
                     </ng-container>
                 </div>
-
             </div>
-
         </mat-drawer-content>
-
     </mat-drawer-container>
-
 </div>

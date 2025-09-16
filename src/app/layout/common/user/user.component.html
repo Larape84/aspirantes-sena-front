@@ -1,47 +1,49 @@
 <!-- Button -->
-<button (click)="obtenerUsuario()"
+<button
+    (click)="obtenerUsuario()"
     mat-icon-button
-    [matMenuTriggerFor]="userActions">
+    [matMenuTriggerFor]="userActions"
+>
     <span class="relative">
         <img
             class="w-7 h-7 rounded-full"
             *ngIf="showAvatar"
-            src="assets/images/avatars/user.jpg">
+            src="assets/images/avatars/user.jpg"
+        />
         <mat-icon
             *ngIf="!showAvatar"
-            [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+            [svgIcon]="'heroicons_outline:user-circle'"
+        ></mat-icon>
         <span
             class="absolute right-0 bottom-0 w-2 h-2 rounded-full"
-            [ngClass]="{'mr-px mb-px bg-green-500': showAvatar}"
+            [ngClass]="{ 'mr-px mb-px bg-green-500': showAvatar }"
         ></span>
     </span>
 </button>
 
-<mat-menu
-    [xPosition]="'before'"
-    #userActions="matMenu">
-
-        <button (click)="irPerfil()" mat-menu-item>
-            <span class="flex flex-col leading-none py-2">
-                <!-- <span>Usuario</span> -->
-                <span class="mt-1.5 text-md font-medium">{{user?.nombre}} {{user?.apellido}}</span>
-                <!-- <span class="mt-1.5 text-md font-medium">{{user?.email}}</span> -->
-                <span class="mt-1.5 text-md font-bold">{{user?.cargo}}</span>
-                <div class="flex gap-2 items-center mt-2">
-
-                    <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-                    <span>Perfil</span>
-                </div>
-            </span>
-        </button>
+<mat-menu [xPosition]="'before'" #userActions="matMenu">
+    <button (click)="irPerfil()" mat-menu-item>
+        <span class="flex flex-col leading-none py-2">
+            <span class="mt-1.5 text-md font-medium uppercase">{{
+                user?.nombres
+            }}</span>
+            <span class="mt-1.5 text-md font-bold">{{
+                user?.centroFormacion
+            }}</span>
+            <div class="flex gap-2 items-center mt-2">
+                <mat-icon
+                    [svgIcon]="'heroicons_outline:user-circle'"
+                ></mat-icon>
+                <span>Perfil</span>
+            </div>
+        </span>
+    </button>
 
     <mat-divider class="my-2"></mat-divider>
-    <button
-        mat-menu-item
-        (click)="signOut()">
-        <mat-icon [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"></mat-icon>
+    <button mat-menu-item (click)="signOut()">
+        <mat-icon
+            [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
+        ></mat-icon>
         <span>Cerrar sesión</span>
     </button>
 </mat-menu>
-
-

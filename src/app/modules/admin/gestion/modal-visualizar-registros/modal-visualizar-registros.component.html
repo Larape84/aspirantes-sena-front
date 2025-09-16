@@ -1,9 +1,33 @@
 <section class="w-full flex-col gap-2 overflow-hidden flex">
-    <section class="flex items-center gap-2">
-        <mat-icon class="icon-size-10 text-gray-400">info</mat-icon>
-        <span class="font-bold text-gray-600 text-xl"
-            >Aspirantes registrados en la convocatoria</span
-        >
+    <section class="flex items-center gap-2 justify-between">
+        <div class="flex gap-2">
+            <mat-icon class="icon-size-10 text-gray-400">info</mat-icon>
+            <span class="font-bold text-gray-600 text-xl"
+                >Aspirantes registrados en la convocatoria</span
+            >
+        </div>
+
+        <div class="flex gap-2 items-center">
+            <button (click)="descargar()" mat-icon-button type="button">
+                <mat-icon class="icon-size-7 text-gray-600"
+                    >cloud_download</mat-icon
+                >
+            </button>
+
+            <div
+                class="rounded-full widthSearch h-9 px-2 border border-gray-300 gap-2 flex items-center"
+            >
+                <mat-icon class="icon-size-6 text-gray-400">search</mat-icon>
+                <input
+                    (input)="filtrar(text.value)"
+                    #text
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Filtrar..."
+                    class="w-full uppercase text-gray-600"
+                />
+            </div>
+        </div>
     </section>
     <hr class="m-0 w-full" />
 
