@@ -9,9 +9,7 @@ const db = admin.firestore();
 const corsHandler = cors({ origin: true });
 
 export const createConvocatoria = functions.https.onRequest((req, res) => {
-    res.set('Access-Control-Allow-Origin', 'https://aspirante-sena.web.app');
-    res.set('Access-Control-Allow-Methods', 'POST');
-    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    setCors(req, res);
 
     if (req.method === 'OPTIONS') {
         res.status(204).send('');
@@ -84,9 +82,7 @@ export const createConvocatoria = functions.https.onRequest((req, res) => {
 });
 
 export const getCollection = functions.https.onRequest((req, res) => {
-    res.set('Access-Control-Allow-Origin', 'https://aspirante-sena.web.app');
-    res.set('Access-Control-Allow-Methods', 'POST');
-    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    setCors(req, res);
 
     if (req.method === 'OPTIONS') {
         res.status(204).send('');
@@ -133,12 +129,7 @@ export const getCollection = functions.https.onRequest((req, res) => {
 
 export const buscarEnConvocatorias = functions.https.onRequest(
     async (req, res) => {
-        res.set(
-            'Access-Control-Allow-Origin',
-            'https://aspirante-sena.web.app'
-        );
-        res.set('Access-Control-Allow-Methods', 'POST');
-        res.set('Access-Control-Allow-Headers', 'Content-Type');
+        setCors(req, res);
 
         if (req.method === 'OPTIONS') {
             res.status(204).send('');
@@ -195,3 +186,25 @@ export const buscarEnConvocatorias = functions.https.onRequest(
         }
     }
 );
+
+function setCors(req: any, res: any) {
+    const allowedOrigins = [
+        'https://aspirante-sena.web.app',
+        // 'http://localhost:4200',
+    ];
+
+    const origin = req.headers.origin;
+
+    if (origin && allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+        res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+        res.setHeader(
+            'Access-Control-Allow-Headers',
+            'Content-Type, Authorization'
+        );
+    } else {
+        // si el origin no está en la lista, no devolver cabecera CORS
+        // el navegador bloqueará la respuesta automáticamente
+    }
+}
