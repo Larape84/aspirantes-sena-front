@@ -6,6 +6,8 @@ import { FirebaseService } from 'app/core/services/services-firebase.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs';
 import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
+import { InicioSesionService } from '../sign-in/inicio-sesion.service';
+import { FinalizarSessionService } from 'app/core/services/finalizar-session.service';
 
 @Component({
     selector: 'app-consultar-aspirante',
@@ -20,11 +22,15 @@ export class ConsultarAspiranteComponent implements OnInit {
     constructor(
         private form: FormBuilder,
         private fireBaseservice: FirebaseService,
-        private _sweetAlertService: Sweetalert2Service
+        private _sweetAlertService: Sweetalert2Service,
+        private _inicioSesion: InicioSesionService,
+        private _finalizaSecion: FinalizarSessionService
     ) {}
 
     ngOnInit(): void {
         this.initForm();
+        this._inicioSesion.eliminarUsuario();
+        this._finalizaSecion.resetSessionTimer();
     }
 
     private initForm(): void {

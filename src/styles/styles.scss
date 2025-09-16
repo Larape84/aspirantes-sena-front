@@ -6,33 +6,23 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
-
-
 @font-face {
     font-family: "Gotham-Light";
     src: url("../assets/fonts/Gotham-Light.otf") format("opentype");
     font-weight: normal;
     font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Gotham-Black';
-    src: url('../assets/fonts/Gotham-Black.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-  }
-
-  body {
-    font-family: "Gotham-Light", sans-serif;
-    // font-family: var(--font-family);
-  }
-
-body .bg-granAbasto-green {
-    background-color: #7fc85d !important;
 }
 
-body .text-granAbasto-green {
-    color:  #7fc85d !important;
+@font-face {
+    font-family: "Gotham-Black";
+    src: url("../assets/fonts/Gotham-Black.otf") format("opentype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
+    font-family: "Gotham-Light", sans-serif;
+    // font-family: var(--font-family);
 }
 
 body .font-customFontBlack {
@@ -41,20 +31,20 @@ body .font-customFontBlack {
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: gray ;
-  }
+    scrollbar-color: gray;
+}
 
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
     width: 12px;
-  }
+}
 
-  *::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     background: transparent;
-  }
+}
 
-  *::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background-color: gray;
     border-radius: 20px;
     border: 3px solid transparent;
-  }
+}

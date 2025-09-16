@@ -14,13 +14,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
 import { InicioSesionService } from './inicio-sesion.service';
 import { FirebaseService } from 'app/core/services/services-firebase.service';
-import { ValidarSoloLetrasConEspacio } from 'app/shared/Validators/input.Validator';
 import { ErrorService } from 'app/core/services/error.service';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
@@ -35,7 +33,6 @@ import { FinalizarSessionService } from 'app/core/services/finalizar-session.ser
     standalone: true,
     imports: [
         NgxMaskDirective,
-        RouterLink,
         FuseAlertComponent,
         NgIf,
         FormsModule,
@@ -155,13 +152,10 @@ export class AuthSignInComponent implements OnInit {
                             return;
                         }
 
-                        // localStorage.setItem('accessToken', resp.token );
                         this._inicioSesion.asignarUsuarioModulos(resp);
                         this._finalizaSecion.startSessionTimer();
                         const redirectURL = '/app';
                         this._router.navigateByUrl(redirectURL);
-
-                        // this._router.navigateByUrl('app')
                     } else {
                         this._sweetAlertService.stopLoading();
                         this.errorForm();

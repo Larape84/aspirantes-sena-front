@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalVisualizarRegistrosComponent } from './modal-visualizar-registros/modal-visualizar-registros.component';
 import { InicioSesionService } from 'app/modules/auth/sign-in/inicio-sesion.service';
+import { FinalizarSessionService } from 'app/core/services/finalizar-session.service';
 
 @Component({
     selector: 'app-gestion',
@@ -41,7 +42,8 @@ export class GestionComponent implements OnInit {
         private _utilService: UtilityService,
         private _dialogService: MatDialog,
         private _sweetalertService: Sweetalert2Service,
-        private _fireService: FirebaseService
+        private _fireService: FirebaseService,
+        private _finalizaSecion: FinalizarSessionService
     ) {}
 
     public obtenerUsuario(): void {
@@ -49,6 +51,7 @@ export class GestionComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this._finalizaSecion.resetSessionTimer();
         this._utilService.getWidth().subscribe({
             next: (resp) => {
                 this.viewMode = resp;

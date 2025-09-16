@@ -8,6 +8,7 @@ import { SharedModuleModule } from 'app/shared/module/shared-module.module';
 import { DateTime } from 'luxon';
 import { ModalNuevoUsuarioComponent } from './modal-nuevo-usuario/modal-nuevo-usuario.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FinalizarSessionService } from 'app/core/services/finalizar-session.service';
 
 @Component({
     selector: 'app-panel-control',
@@ -33,10 +34,12 @@ export class PanelControlComponent implements OnInit {
         private _sweetalertService: Sweetalert2Service,
         private _fireService: FirebaseService,
         private _utilService: UtilityService,
-        private _dialogService: MatDialog
+        private _dialogService: MatDialog,
+        private _finalizaSecion: FinalizarSessionService
     ) {}
 
     ngOnInit(): void {
+        this._finalizaSecion.resetSessionTimer();
         this.listarUsuarios();
         this._utilService.getWidth().subscribe({
             next: (resp) => {

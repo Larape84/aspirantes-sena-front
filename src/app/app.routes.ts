@@ -9,8 +9,6 @@ import { LayoutComponent } from 'app/layout/layout.component';
 export const appRoutes: Route[] = [
     {
         path: 'login',
-        // canActivate: [NoAuthGuard],
-        // canActivateChild: [NoAuthGuard],
         component: LayoutComponent,
         data: {
             layout: 'empty',
@@ -28,7 +26,6 @@ export const appRoutes: Route[] = [
 
     {
         path: 'consulta',
-
         component: LayoutComponent,
         data: {
             layout: 'empty',
@@ -41,7 +38,6 @@ export const appRoutes: Route[] = [
                         'app/modules/auth/consultar-aspirante/consultar.routes'
                     ),
             },
-
             { path: '**', redirectTo: '' },
         ],
     },
@@ -50,7 +46,6 @@ export const appRoutes: Route[] = [
 
     {
         path: 'app',
-
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver,
