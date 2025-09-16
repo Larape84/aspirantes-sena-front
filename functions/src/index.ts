@@ -9,6 +9,15 @@ const db = admin.firestore();
 const corsHandler = cors({ origin: true });
 
 export const createConvocatoria = functions.https.onRequest((req, res) => {
+    res.set('Access-Control-Allow-Origin', 'https://aspirante-sena.web.app');
+    res.set('Access-Control-Allow-Methods', 'POST');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        res.status(204).send('');
+        return;
+    }
+
     corsHandler(req, res, async () => {
         try {
             if (req.method !== 'POST') {
@@ -75,9 +84,14 @@ export const createConvocatoria = functions.https.onRequest((req, res) => {
 });
 
 export const getCollection = functions.https.onRequest((req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Origin', 'https://aspirante-sena.web.app');
     res.set('Access-Control-Allow-Methods', 'POST');
     res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        res.status(204).send('');
+        return;
+    }
 
     corsHandler(req, res, async () => {
         try {
@@ -119,8 +133,10 @@ export const getCollection = functions.https.onRequest((req, res) => {
 
 export const buscarEnConvocatorias = functions.https.onRequest(
     async (req, res) => {
-        // habilitar CORS si lo necesitas
-        res.set('Access-Control-Allow-Origin', '*');
+        res.set(
+            'Access-Control-Allow-Origin',
+            'https://aspirante-sena.web.app'
+        );
         res.set('Access-Control-Allow-Methods', 'POST');
         res.set('Access-Control-Allow-Headers', 'Content-Type');
 
