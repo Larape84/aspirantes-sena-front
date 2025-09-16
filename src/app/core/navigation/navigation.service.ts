@@ -44,6 +44,8 @@ export class NavigationService {
     public filtrarCompact(menuData: any, condicion: boolean): any {
         const idsPermitidos = new Set<string>();
 
+        console.log(condicion, 'condicion');
+
         if (condicion) {
             idsPermitidos.add('usuarioCreado');
             idsPermitidos.add('anexarDocumento');

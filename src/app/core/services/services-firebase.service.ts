@@ -43,6 +43,13 @@ export class FirebaseService {
         );
     }
 
+    public getColectionsRegister(collectionName): Observable<any> {
+        return this.http.post(
+            'https://us-central1-aspirante-sena.cloudfunctions.net/getCollection',
+            { collectionName }
+        );
+    }
+
     getDocumentId(collectionName: string, userId: string): Observable<any> {
         const userRef = collection(this.firestore, collectionName);
 
@@ -81,6 +88,13 @@ export class FirebaseService {
         return this.http.post(
             'https://us-central1-aspirante-sena.cloudfunctions.net/createConvocatoria',
             { ...form, token: this.tokenSesion }
+        );
+    }
+
+    consultarResitro(form: any): Observable<any> {
+        return this.http.post(
+            'https://buscarenconvocatorias-yehiwr5e2q-uc.a.run.app',
+            { ...form }
         );
     }
 

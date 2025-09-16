@@ -25,7 +25,28 @@ export const appRoutes: Route[] = [
             { path: '**', redirectTo: 'sign-in' },
         ],
     },
-    { path: '', pathMatch: 'full', redirectTo: 'login' },
+
+    {
+        path: 'consulta',
+
+        component: LayoutComponent,
+        data: {
+            layout: 'empty',
+        },
+        children: [
+            {
+                path: '',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/consultar-aspirante/consultar.routes'
+                    ),
+            },
+
+            { path: '**', redirectTo: '' },
+        ],
+    },
+
+    { path: '', pathMatch: 'full', redirectTo: 'consulta' },
 
     {
         path: 'app',

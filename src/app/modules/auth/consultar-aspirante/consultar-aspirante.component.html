@@ -1,0 +1,46 @@
+<section class="w-screen h-screen flex flex-col gap-2 overflow-hidden">
+    <div class="flex w-full h-full items-center justify-center">
+        <div class="w-140 border border-gray-200 rounded-md h-100 bg-white">
+            <form
+                [formGroup]="formsearch"
+                class="w-full flex gap-2 items-center justify-center px-4 py-4"
+            >
+                <mat-form-field class="fuse-mat-dense">
+                    <mat-label>Tipo documento</mat-label>
+                    <mat-select formControlName="TIPO_DOCUMENTO">
+                        <mat-option disabled [value]="''"
+                            >Seleccione</mat-option
+                        >
+                        <mat-option [value]="'CC'">CC</mat-option>
+                        <mat-option [value]="'CE'">CE</mat-option>
+                        <mat-option [value]="'TI'">TI</mat-option>
+                        <mat-option [value]="'PPT'">PPT</mat-option>
+                        <mat-option [value]="'PEP'">PEP</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="fuse-mat-dense flex-grow">
+                    <mat-label>Numero de documento</mat-label>
+                    <input
+                        type="text"
+                        autocomplete="off"
+                        matInput
+                        formControlName="DOCUMENTO"
+                        placeholder="Numero de documento"
+                    />
+                </mat-form-field>
+
+                <button
+                    (click)="consultarRegistro()"
+                    mat-raised-button
+                    [disabled]="formsearch.invalid"
+                    type="button"
+                    color="primary"
+                >
+                    <mat-icon class="text-white">search</mat-icon>
+                    Consultar
+                </button>
+            </form>
+        </div>
+    </div>
+</section>

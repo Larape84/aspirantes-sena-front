@@ -110,7 +110,12 @@
     </form>
     <hr class="m-0 w-full" />
     <section class="flex justify-evenly">
-        <button (click)="guardar()" mat-raised-button color="primary">
+        <button
+            [disabled]="form.invalid || !data.length"
+            (click)="guardar()"
+            mat-raised-button
+            color="primary"
+        >
             Guardar
         </button>
 

@@ -52,7 +52,7 @@ export class Sweetalert2Service {
             cancelButtonText: 'Cancelar',
             customClass: {
                 actions: 'flex-row-reverse gap-2',
-                cancelButton: 'rounded-full w-26 bg-gray-500 ring-0',
+                cancelButton: 'rounded-full w-26 bg-gray-500 ring-1',
                 confirmButton: 'rounded-full w-26 ring-0',
             },
         }).then((result: any) => {

@@ -23,6 +23,9 @@ export const createConvocatoria = functions.https.onRequest((req, res) => {
                 dataConvocatoria,
                 estado,
                 token,
+                fecha,
+                registros,
+                user,
             } = req.body;
 
             console.log('Body recibido:', req.body);
@@ -39,6 +42,9 @@ export const createConvocatoria = functions.https.onRequest((req, res) => {
                 centroFormacion,
                 estado,
                 token,
+                fecha,
+                registros,
+                user,
             });
 
             if (Array.isArray(dataConvocatoria)) {
@@ -67,3 +73,109 @@ export const createConvocatoria = functions.https.onRequest((req, res) => {
         }
     });
 });
+
+export const getCollection = functions.https.onRequest((req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'POST');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method !== 'POST') {
+                res.status(405).send('Método no permitido');
+                return;
+            }
+
+            const { collectionName } = req.body;
+
+            if (!collectionName) {
+                res.status(400).json({
+                    error: 'Falta el nombre de la colección',
+                });
+                return;
+            }
+
+            const snapshot = await db.collection(collectionName).get();
+
+            if (snapshot.empty) {
+                res.status(404).json({
+                    error: 'La colección está vacía o no existe',
+                });
+                return;
+            }
+
+            const documentos = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+
+            res.status(200).json(documentos);
+        } catch (err: any) {
+            console.error('Error en getCollection:', err);
+            res.status(500).json({ error: err.message || 'Error interno' });
+        }
+    });
+});
+
+export const buscarEnConvocatorias = functions.https.onRequest(
+    async (req, res) => {
+        // habilitar CORS si lo necesitas
+        res.set('Access-Control-Allow-Origin', '*');
+        res.set('Access-Control-Allow-Methods', 'POST');
+        res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+        if (req.method === 'OPTIONS') {
+            res.status(204).send('');
+            return;
+        }
+
+        try {
+            if (req.method !== 'POST') {
+                res.status(405).send('Método no permitido');
+                return;
+            }
+
+            const { DOCUMENTO, TIPO_DOCUMENTO } = req.body;
+
+            if (!DOCUMENTO || !TIPO_DOCUMENTO) {
+                res.status(400).json({ error: 'Faltan parámetros' });
+                return;
+            }
+
+            const convocatoriasRef = db.collection('convocatorias');
+            const snapshot = await convocatoriasRef.get();
+
+            let resultados: any[] = [];
+
+            for (const doc of snapshot.docs) {
+                const dataConvRef = convocatoriasRef
+                    .doc(doc.id)
+                    .collection('dataConvocatoria');
+
+                const querySnap = await dataConvRef
+                    .where('DOCUMENTO', '==', String(DOCUMENTO)) // 🔑 forzar a string
+                    .where('TIPO_DOC', '==', String(TIPO_DOCUMENTO)) // 🔑 ojo con el nombre del campo
+                    .get();
+
+                if (!querySnap.empty) {
+                    querySnap.forEach((subDoc) => {
+                        resultados.push({
+                            convocatoriaId: doc.id,
+                            dataConvocatoriaId: subDoc.id,
+                            ...subDoc.data(),
+                        });
+                    });
+                }
+            }
+
+            if (resultados.length === 0) {
+                res.json({ error: 'No se encontraron resultados' });
+            } else {
+                res.json({ resultados });
+            }
+        } catch (error: any) {
+            console.error('Error en getConvocatoria:', error);
+            res.status(500).json({ error: error.message || 'Error interno' });
+        }
+    }
+);

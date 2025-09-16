@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilityService } from 'app/core/services/utility.service';
 import { SharedModuleModule } from 'app/shared/module/shared-module.module';
 import { ModalAgregarRegistrosComponent } from './modal-agregar-registros/modal-agregar-registros.component';
+import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { FirebaseService } from 'app/core/services/services-firebase.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ModalVisualizarRegistrosComponent } from './modal-visualizar-registros/modal-visualizar-registros.component';
+import { InicioSesionService } from 'app/modules/auth/sign-in/inicio-sesion.service';
 
 @Component({
     selector: 'app-gestion',
@@ -12,25 +19,34 @@ import { ModalAgregarRegistrosComponent } from './modal-agregar-registros/modal-
     imports: [SharedModuleModule],
 })
 export class GestionComponent implements OnInit {
-    public dataSource = [];
+    @ViewChild(MatPaginator) paginador: MatPaginator;
+
+    public dataSource = new MatTableDataSource([]);
     public displayedColumns = [
-        'documento',
-        'nombre',
-        'apellido',
-        'cargo',
-        'centro',
-        'activo',
+        'convocatoria',
+        'vigencia',
+        'centroFormacion',
         'usuario',
-        'gestor',
-        'admin',
+        'fechaCreacion',
+        'estado',
+        'registros',
     ];
 
+    public user = null;
+
     public viewMode = 'XLarge';
+    public _iniicioSesionService = inject(InicioSesionService);
 
     constructor(
         private _utilService: UtilityService,
-        private _dialogService: MatDialog
+        private _dialogService: MatDialog,
+        private _sweetalertService: Sweetalert2Service,
+        private _fireService: FirebaseService
     ) {}
+
+    public obtenerUsuario(): void {
+        this.user = this._iniicioSesionService.obtenerUsuario();
+    }
 
     ngOnInit(): void {
         this._utilService.getWidth().subscribe({
@@ -38,19 +54,83 @@ export class GestionComponent implements OnInit {
                 this.viewMode = resp;
             },
         });
+
+        this.listarUsuarios();
+        this.obtenerUsuario();
     }
 
     public openModal(): void {
-        this._dialogService.open(ModalAgregarRegistrosComponent, {
-            panelClass: ['w-[40rem]'],
-        });
+        this._dialogService
+            .open(ModalAgregarRegistrosComponent, {
+                panelClass: ['w-[40rem]'],
+            })
+            .afterClosed()
+            .subscribe((res) => {
+                if (!!res) {
+                    this.listarUsuarios(false);
+                }
+            });
     }
 
     public descargarData(): void {}
 
-    public listarUsuarios(): void {}
+    public listarUsuarios(loading = true): void {
+        if (loading) {
+            this._sweetalertService.startLoading({});
+            new MatTableDataSource([]);
+        }
+
+        this._fireService.getCollection('convocatorias').subscribe({
+            next: (resp) => {
+                this.dataSource = new MatTableDataSource(resp || []);
+                this.paginador.pageSize = this.dataSource.data.length ?? 50;
+                this.dataSource.paginator = this.paginador;
+
+                console.log(resp);
+                if (loading) {
+                    this._sweetalertService.stopLoading();
+                }
+            },
+        });
+    }
 
     public filtrar(text: string): void {}
 
-    public cambiarEstadoDependencia(item: any): void {}
+    public cambiarEstadoDependencia(item: any): void {
+        this._sweetalertService.startLoading({});
+
+        this._fireService
+            .updateDocument('convocatorias', item.id, { estado: item.estado })
+            .subscribe({
+                next: (resp) => {
+                    this._sweetalertService.alertSuccess();
+                },
+                error: (e) => {
+                    this._sweetalertService.alertError(e.message);
+                    this.listarUsuarios();
+                },
+            });
+    }
+
+    public visualizarRegistros(element: any): void {
+        this._sweetalertService.startLoading({});
+
+        const coleccion = `convocatorias/${element.id}/dataConvocatoria`;
+
+        console.log(coleccion);
+
+        this._fireService.getColectionsRegister(coleccion).subscribe({
+            next: (resp) => {
+                this._sweetalertService.stopLoading();
+
+                this._dialogService.open(ModalVisualizarRegistrosComponent, {
+                    data: { resp, element },
+                });
+            },
+            error: (e: HttpErrorResponse) => {
+                console.log(e);
+                this._sweetalertService.alertError(e.message);
+            },
+        });
+    }
 }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FirebaseService } from 'app/core/services/services-firebase.service';
 import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
+import { InicioSesionService } from 'app/modules/auth/sign-in/inicio-sesion.service';
 import { SharedModuleModule } from 'app/shared/module/shared-module.module';
 import * as XLSX from 'xlsx';
 
@@ -26,6 +28,9 @@ export class ModalAgregarRegistrosComponent implements OnInit {
 
     public form: FormGroup = new FormGroup({});
 
+    public _iniicioSesionService = inject(InicioSesionService);
+    public user = null;
+
     constructor(
         private Sweetalert2Service: Sweetalert2Service,
         private fb: FormBuilder,
@@ -33,28 +38,44 @@ export class ModalAgregarRegistrosComponent implements OnInit {
         private dialogRef: MatDialogRef<ModalAgregarRegistrosComponent>
     ) {}
     ngOnInit(): void {
+        this.obtenerUsuario();
         this.inirFotm();
     }
 
-    public guardar(): void {
-        const form = this.form.getRawValue();
+    public obtenerUsuario(): void {
+        this.user = this._iniicioSesionService.obtenerUsuario();
+    }
 
-        const payload = {
-            convocatoria: form.convocatoria,
-            vigencia: form.vigencia,
-            centroFormacion: form.centroFormacion,
-            dataConvocatoria: this.data,
-            estado: form.estado,
+    public guardar(): void {
+        const callback = () => {
+            const form = this.form.getRawValue();
+
+            this.Sweetalert2Service.startLoading({});
+
+            const payload: any = {
+                convocatoria: form.convocatoria,
+                vigencia: form.vigencia,
+                centroFormacion: form.centroFormacion,
+                dataConvocatoria: this.data,
+                estado: form.estado,
+                user: this.user,
+                fecha: new Date(),
+                registros: this.data.length,
+            };
+
+            this.firebaseService.createConvocatoria(payload).subscribe({
+                next: (resp: any) => {
+                    this.Sweetalert2Service.alertSuccess().then(() => {
+                        this.dialogRef.close(true);
+                    });
+                },
+                error: (err: HttpErrorResponse) => {
+                    this.Sweetalert2Service.alertError(err.message);
+                },
+            });
         };
 
-        console.log(payload);
-
-        this.firebaseService.createConvocatoria(payload).subscribe({
-            next: (resp: any) => {},
-            error: (err: any) => {
-                console.log(err);
-            },
-        });
+        this.Sweetalert2Service.alertConfirmation(callback);
     }
 
     onFileChange(event: Event): void {
@@ -123,7 +144,6 @@ export class ModalAgregarRegistrosComponent implements OnInit {
             convocatoria: ['', [Validators.required]],
             vigencia: ['', [Validators.required]],
             centroFormacion: ['', [Validators.required]],
-            usuario: ['', [Validators.required]],
             estado: [true, [Validators.required]],
         });
     }

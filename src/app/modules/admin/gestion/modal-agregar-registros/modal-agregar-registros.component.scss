@@ -8,3 +8,9 @@
 .cursor-pointer {
     cursor: pointer !important;
 }
+::ng-deep .rounded-full.w-26.ring-0 {
+    border-radius: 9999px !important;
+    width: 6.5rem !important;
+    box-shadow: none !important;
+    background-color: #3085d6 !important;
+}
