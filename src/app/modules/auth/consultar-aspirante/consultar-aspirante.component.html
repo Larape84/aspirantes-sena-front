@@ -1,11 +1,17 @@
-<section class="w-screen h-screen flex flex-col gap-2 overflow-hidden">
+<section
+    class="w-screen h-screen flex flex-col gap-2 overflow-hidden bg-aspirantes"
+>
     <div class="flex w-full h-full items-center justify-center">
-        <div class="w-140 border border-gray-200 rounded-md h-100 bg-white">
+        <div
+            [ngClass]="dataConsulta.length === 0 ? 'w-84 h-80' : 'w-100 h-140'"
+            class="transition-all duration-500 border border-gray-200 rounded-md glass flex flex-row relative"
+        >
             <form
+                *ngIf="dataConsulta.length === 0"
                 [formGroup]="formsearch"
-                class="w-full flex gap-2 items-center justify-center px-4 py-4"
+                class="w-full flex flex-col gap-2 items-center justify-center px-4 py-4"
             >
-                <mat-form-field class="fuse-mat-dense">
+                <mat-form-field class="fuse-mat-dense w-full">
                     <mat-label>Tipo documento</mat-label>
                     <mat-select formControlName="TIPO_DOCUMENTO">
                         <mat-option disabled [value]="''"
@@ -19,7 +25,7 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="fuse-mat-dense flex-grow">
+                <mat-form-field class="fuse-mat-dense w-full">
                     <mat-label>Numero de documento</mat-label>
                     <input
                         type="text"
@@ -36,11 +42,106 @@
                     [disabled]="formsearch.invalid"
                     type="button"
                     color="primary"
+                    class="w-full text-white"
                 >
                     <mat-icon class="text-white">search</mat-icon>
                     Consultar
                 </button>
             </form>
+
+            <div
+                *ngIf="dataConsulta.length > 0"
+                class="w-full flex p-2 flex-col gap-2"
+            >
+                <div
+                    *ngFor="let item of dataConsulta"
+                    class="w-full flex flex-col gap-2 max-h-100 overflow-y-auto overflow-x-hidden"
+                >
+                    <div class="w-full flex flex-col text-start">
+                        <span class="font-semibold text-black">
+                            Aspirante :
+                        </span>
+
+                        <span class="text-gray-700">
+                            {{ item["TIPO_DOC"] }} {{ item["DOCUMENTO"] }} -
+                            {{ item["NOMBRES"] }} {{ item["APELLIDOS"] }}
+                        </span>
+
+                        <span class="text-gray-700">
+                            {{ item["CORREO_E"] }}
+                        </span>
+                    </div>
+
+                    <div class="w-full flex flex-col text-start">
+                        <span class="font-semibold text-black">
+                            Regional :
+                        </span>
+
+                        <span class="text-gray-700">
+                            {{ item["NOMBRE REGIONAL"] }}
+                        </span>
+                    </div>
+
+                    <div class="w-full flex flex-col text-start">
+                        <span class="font-semibold text-black">
+                            Centro de formación :
+                        </span>
+
+                        <span class="text-gray-700">
+                            {{ item["NOMBRE SEDE"] }}
+                        </span>
+                    </div>
+
+                    <div class="w-full flex flex-col text-start">
+                        <span class="font-semibold text-black">
+                            Programa de formación :
+                        </span>
+
+                        <span class="text-gray-700">
+                            {{ item["DENOMINACION PROGRAMA"] }}
+                        </span>
+                        <span class="text-gray-700">
+                            Nivel de formación :
+                            {{ item["NIVEL FORMACION"] }} ficha :
+                            {{ item["CODIGO FICHA"] }}
+                        </span>
+                    </div>
+
+                    <div class="w-full flex flex-col text-start">
+                        <span class="font-semibold text-black">
+                            Estado del aspirante :
+                        </span>
+
+                        <span class="text-gray-700">
+                            {{ item["ESTADO"] }}
+                        </span>
+                    </div>
+
+                    <div class="w-full flex flex-col text-start">
+                        <span class="font-semibold text-black">
+                            Descripción :
+                        </span>
+
+                        <span class="text-gray-700">
+                            {{ item["DESCRIPCION"] }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="absolute bottom">
+                    <button
+                        (click)="borrarConsulta()"
+                        mat-raised-button
+                        [disabled]="formsearch.invalid"
+                        type="button"
+                        color="primary"
+                        class="w-fit text-white"
+                    >
+                        <mat-icon class="text-white">search</mat-icon>
+                        Nueva consulta
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </section>

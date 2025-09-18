@@ -8,6 +8,7 @@ import { switchMap } from 'rxjs';
 import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
 import { InicioSesionService } from '../sign-in/inicio-sesion.service';
 import { FinalizarSessionService } from 'app/core/services/finalizar-session.service';
+import { dataOffline } from './data';
 
 @Component({
     selector: 'app-consultar-aspirante',
@@ -18,6 +19,8 @@ import { FinalizarSessionService } from 'app/core/services/finalizar-session.ser
 })
 export class ConsultarAspiranteComponent implements OnInit {
     public formsearch: FormGroup = new FormGroup({});
+
+    public dataConsulta: any[] = [];
 
     constructor(
         private form: FormBuilder,
@@ -40,16 +43,30 @@ export class ConsultarAspiranteComponent implements OnInit {
         });
     }
 
+    public borrarConsulta(): void {
+        this.dataConsulta = [];
+        this.initForm();
+    }
+
     public consultarRegistro(): void {
         this._sweetAlertService.startLoading({});
 
         const payload = this.formsearch.getRawValue();
         this.fireBaseservice.consultarResitro(payload).subscribe({
             next: (resp) => {
-                console.log(resp);
+                this.dataConsulta = resp?.resultados || [];
+                // this.dataConsulta = dataOffline || [];
+
+                if (this.dataConsulta.length === 0) {
+                    this._sweetAlertService.alertInfo({});
+                    this.initForm();
+                }
+
                 this._sweetAlertService.stopLoading();
             },
             error: (e: HttpErrorResponse) => {
+                // this.dataConsulta = dataOffline || [];
+                // this._sweetAlertService.stopLoading();
                 this._sweetAlertService.alertError(e.message);
             },
         });

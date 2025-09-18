@@ -1,24 +1,37 @@
 <div class="flex flex-col flex-auto">
-
-
-    <div class="w-full paading h-full flex ">
-
-        <div  class="w-full div-inicial h-full flex flex-col items-center rounded-md border overflow-x-hidden border-gray-200">
-
-            <div *ngIf="screen !== 'XSmall' " style="width: 18rem;margin-left: -130px;" class="">
-                <img src="assets/images/inicio/inicio.png" class="object-cover" alt="">
+    <div class="w-full paading h-full flex">
+        <div
+            class="w-full div-inicial h-full flex flex-col items-center rounded-md border overflow-x-hidden border-gray-200"
+        >
+            <div
+                *ngIf="screen !== 'XSmall'"
+                style="width: 18rem; margin-left: -130px"
+                class=""
+            >
+                <img
+                    src="assets/images/inicio/inicio.png"
+                    class="object-cover"
+                    alt=""
+                />
             </div>
-            <div *ngIf="screen === 'XSmall' ">
-                <img src="assets/images/inicio/inicio_movil.png" class="object-cover" alt="">
+            <div *ngIf="screen === 'XSmall'">
+                <img
+                    src="assets/images/inicio/inicio_movil.png"
+                    class="object-cover"
+                    alt=""
+                />
             </div>
             <div class="w-full flex flex-col gap-4 items-center">
-                <span style="background-color: #556281;" class=" lg:text-5xl text-3xl  text-white font-customFontBlack py-2 px-8  rounded-full ">Bienvenido</span>
-                <span class="font-extrabold sm:font-customFontBlack lg:text-3xl text-2xl text-center px-2 sm:px-0 text-gray-700">Selecciona un módulo para iniciar la gestión!</span>
-
+                <span
+                    style="background-color: #08b208"
+                    class="lg:text-5xl text-3xl text-white font-customFontBlack py-2 px-8 rounded-full"
+                    >Bienvenido</span
+                >
+                <span
+                    class="font-extrabold sm:font-customFontBlack lg:text-3xl text-2xl text-center px-2 sm:px-0 text-gray-700"
+                    >Selecciona un módulo para iniciar la gestión!</span
+                >
             </div>
-
         </div>
-
     </div>
-
 </div>

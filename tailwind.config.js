@@ -13,7 +13,7 @@ const generatePalette = require(path.resolve(
  * Tailwind-like color palettes automatically
  */
 const customPalettes = {
-    brand: generatePalette("#2196F3"),
+    brand: generatePalette("#08b208"),
 };
 
 /**
@@ -24,7 +24,8 @@ const themes = {
     default: {
         primary: {
             ...colors.indigo,
-            DEFAULT: colors.indigo[600],
+            // DEFAULT: colors.indigo[600],
+            DEFAULT: "#08b208",
         },
         accent: {
             ...colors.slate,
@@ -55,7 +56,7 @@ const themes = {
     purple: {
         primary: {
             ...colors.purple,
-            DEFAULT: colors.purple[600],
+            DEFAULT: "#08b208",
         },
     },
     amber: {
