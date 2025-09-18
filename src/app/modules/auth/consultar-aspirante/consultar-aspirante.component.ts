@@ -57,13 +57,12 @@ export class ConsultarAspiranteComponent implements OnInit {
             next: (resp) => {
                 this.dataConsulta = resp?.resultados || [];
                 // this.dataConsulta = dataOffline || [];
+                this._sweetAlertService.stopLoading();
 
                 if (this.dataConsulta.length === 0) {
                     this._sweetAlertService.alertInfo({});
                     this.initForm();
                 }
-
-                this._sweetAlertService.stopLoading();
             },
             error: (e: HttpErrorResponse) => {
                 // this.dataConsulta = dataOffline || [];
