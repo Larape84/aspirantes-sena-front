@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedModuleModule } from 'app/shared/module/shared-module.module';
-import { A11yModule } from '@angular/cdk/a11y';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'app/core/services/services-firebase.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { switchMap } from 'rxjs';
 import { Sweetalert2Service } from 'app/core/services/sweetalert2.service';
 import { InicioSesionService } from '../sign-in/inicio-sesion.service';
 import { FinalizarSessionService } from 'app/core/services/finalizar-session.service';
 import { dataOffline } from './data';
+import { ErrorService } from 'app/core/services/error.service';
+import { ValidarNumeros } from 'app/shared/Validators/input.Validator';
 
 @Component({
     selector: 'app-consultar-aspirante',
     templateUrl: './consultar-aspirante.component.html',
     styleUrls: ['./consultar-aspirante.component.scss'],
     standalone: true,
-    imports: [SharedModuleModule, A11yModule],
+    imports: [SharedModuleModule],
 })
 export class ConsultarAspiranteComponent implements OnInit {
     public formsearch: FormGroup = new FormGroup({});
@@ -27,7 +27,8 @@ export class ConsultarAspiranteComponent implements OnInit {
         private fireBaseservice: FirebaseService,
         private _sweetAlertService: Sweetalert2Service,
         private _inicioSesion: InicioSesionService,
-        private _finalizaSecion: FinalizarSessionService
+        private _finalizaSecion: FinalizarSessionService,
+        public ErrorService: ErrorService
     ) {}
 
     ngOnInit(): void {
@@ -38,7 +39,7 @@ export class ConsultarAspiranteComponent implements OnInit {
 
     private initForm(): void {
         this.formsearch = this.form.group({
-            DOCUMENTO: ['', [Validators.required]],
+            DOCUMENTO: ['', [Validators.required, ValidarNumeros(5)]],
             TIPO_DOCUMENTO: ['', [Validators.required]],
         });
     }
